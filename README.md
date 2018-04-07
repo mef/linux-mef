@@ -1,14 +1,16 @@
-# bunsen-mef
+# linux-mef
 
-My Bunsenlabs linux config
+This repository gathers a set of notes, scripts, tips gathered from my linux usage.
 
-This repository gathers a set of scripts / how-to guides which I use to customize my laptops configurations.
+I wrote it for myself, but have no reason to keep it private.
+
+Use at your own risks.
 
 Work in progress.
 
-## System setup
+
+## Bunsenlabs linux config
 
 ### Disk Partitioning
 
-## Configuration
-
+Once bunsen is installed, and bl-welcome has been run, execute bunsenLabs-helium-setup.
