@@ -6,6 +6,8 @@
 ##
 #############################################################################
 
+echo fonts
+
 ## fonts
 sudo apt install fonts-liberation2
 
@@ -18,12 +20,34 @@ sudo apt remove fonts-noto-cjk
 
 #############################################################################
 ##
+## Custom configuration
+## 
+## a bit like https://github.com/BunsenLabs/bunsen-configs
+##
+#############################################################################
+
+echo config
+
+bkp_sfx="~$( date +%FT%T )~"
+
+rsync -rlb --checksum --suffix="$bkp_sfx" --safe-links skel/ "$HOME"
+
+
+#############################################################################
+##
 ## Install extra software
 ##
 #############################################################################
 
+echo extra software
+
 ## graphics software
 sudo apt install inkscape gimp gcolor
+
+## screen color manager
+sudo apt install redshift
+
+## virtual machine
 
 
 #############################################################################
@@ -41,6 +65,8 @@ sudo apt install inkscape gimp gcolor
 ##
 #############################################################################
 
+echo thinkpad stuff
+
 ## Install tlp
 ## tp_smapi is not supported on my machine, install acpi_call module instead
 sudo apt install tlp acpi-call-dkms
@@ -50,4 +76,6 @@ sudo apt install tlp acpi-call-dkms
 TOUCHPADID=`xinput list | grep TouchPad | awk '{print $6}' | cut -c4,5`
 echo 'xinput disable $TOUCHPADID' >> ~/.config/openbox/autostart.sh
 echo 'xinput enable $TOUCHPADID' > ~/bin/enable-touchpad.sh
+
+chmod +x ~/bin/enable-touchpad.sh
 
