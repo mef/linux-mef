@@ -11,6 +11,17 @@ Work in progress.
 
 ## Bunsenlabs linux config
 
-### Disk Partitioning
+### Pre-install
 
-Once bunsen is installed, and bl-welcome has been run, execute bunsenLabs-helium-setup.
+
+* check ssh accesses, be sure not to end up locked down from some server.
+* Run backup scripts
+* Partition disks
+
+
+### Post-install
+
+Once bunsen is installed, and bl-welcome has been run:
+
+* execute bunsenLabs-helium-setup
+* create ssh keys, and register them to relevant servers
