@@ -47,7 +47,22 @@ sudo apt install inkscape gimp gcolor
 ## screen color manager
 sudo apt install redshift
 
+## utilities
+sudo apt install baobab
+
+
 ## virtual machine
+
+
+#############################################################################
+##
+## Install development software
+##
+#############################################################################
+
+echo dev software
+
+## node.js via nvm
 
 
 #############################################################################
@@ -79,3 +94,12 @@ echo 'xinput enable $TOUCHPADID' > ~/bin/enable-touchpad.sh
 
 chmod +x ~/bin/enable-touchpad.sh
 
+#############################################################################
+##
+## Cleanup
+##
+#############################################################################
+
+echo cleanup
+
+sudo apt-get clean
