@@ -33,8 +33,6 @@ Work in progress.
 
 
 
-
-
 /dev/sda3 should be set as noatime and have journaling disabled
 
 
@@ -70,6 +68,7 @@ $ ./bunsenLabs-helium-setup.sh
 * set keyboard layout as UK extended: select English (UK, ~international with dead keys~ extended WinKeys)
 
 
+* auto-login at boot
 * firefox+ firefox developer edition, addons + config, userContent and userchrome
 * execute bunsenLabs-helium-setup
 * create ssh keys, and register them to relevant servers
