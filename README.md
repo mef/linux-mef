@@ -53,8 +53,11 @@ $ git config --global user.email johndoe@example.com
 
 * clone this repository, and run the setup script
 
+Notes:
+  * set keyboard layout as UK extended: select English (UK, ~international with dead keys~ extended WinKeys)
+
 ````bash
-$ mkdir ~/development/other
+$ mkdir -p ~/development/other
 $ cd ~/development/other
 $ git clone https://github.com/mef/linux-mef.git
 $ cd linux-mef
@@ -62,14 +65,19 @@ $ ./bunsenLabs-helium-setup.sh
 ````
 
 
+#### manual actions
+
+* adjust battery charge thresholds in `/etc/default/tlp`
+* select theme monokai-mef them in geany "View\Change color scheme" menu
+* activate line wrap in geany "Document" menu
+* generate ssh keys `ssh-keygen t rsa -b 4096 -C "johndoe@example.com"`
+* create `.ssh/config`
+* add public key to relevant servers and test all accesses
 
 
-
-* set keyboard layout as UK extended: select English (UK, ~international with dead keys~ extended WinKeys)
-
+#### wip
 
 * auto-login at boot
 * firefox+ firefox developer edition, addons + config, userContent and userchrome
-* execute bunsenLabs-helium-setup
 * create ssh keys, and register them to relevant servers
 * setup anti-theft system - like this > http://tristan.terpelle.be/prey-anti-theft-on-debian.html ?
