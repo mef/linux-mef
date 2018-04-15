@@ -11,6 +11,8 @@ echo fonts
 ## fonts
 sudo apt install fonts-liberation2
 
+## raleway, roboto
+
 ## Set a nicer default monospace font
 set i- 's/Inconsolata/Dejavu Sans Mono/g' .config/fontconfig/fonts.conf
 
@@ -44,11 +46,16 @@ echo extra software
 ## graphics software
 sudo apt install inkscape gimp gcolor
 
+
+## ffmpeg
+
+## skype - do I really need it? via this method https://linuxconfig.org/how-to-install-skype-on-debian-9-stretch-linux#comment-3752388010 ?
+
 ## screen color manager
 sudo apt install redshift
 
 ## utilities
-sudo apt install baobab
+sudo apt install awscli baobab
 
 
 ## virtual machine
@@ -64,12 +71,17 @@ echo dev software
 
 ## node.js via nvm
 
+## mariadb: let data and tmp directories inside /home partition
+
 
 #############################################################################
 ##
 ## Unattended-upgrades
 ##
 #############################################################################
+
+## configure exim
+sudo dpkg-reconfigure exim4-config
 
 ## todo
 

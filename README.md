@@ -18,11 +18,44 @@ Work in progress.
 * Run backup scripts
 * Partition disks
 
+| mount point | partition | size |
+| -- | -- | -- |
+| / | /dev/sda1 | 20GB |
+| /home | /dev/sda2 | 210GB |
+| /var/log | /dev/sda3 | 256MB |
+| swap | /dev/sda4 | 4GB |
+
+## Install
+
+* language: English
+* location: Belgium
+* locale: Ireland
+
+
+
+
+
+/dev/sda3 should be set as noatime and have journaling disabled
+
+
+
+
 
 ### Post-install
 
-Once bunsen is installed, and bl-welcome has been run:
+Once bunsen is installed, and bl-welcome has been run.
 
+
+* configure git
+
+````bash
+$ git config --global user.name "John Doe"
+$ git config --global user.email johndoe@example.com
+````
+
+
+* set keyboard layout as UK extended
+* firefox+ firefox developer edition, addons + config, userContent and userchrome
 * execute bunsenLabs-helium-setup
 * create ssh keys, and register them to relevant servers
 * setup anti-theft system - like this > http://tristan.terpelle.be/prey-anti-theft-on-debian.html ?
