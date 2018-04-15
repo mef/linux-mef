@@ -93,6 +93,9 @@ sudo apt install tlp acpi-call-dkms
 
 echo extra software
 
+## xbacklight
+#sudo apt install xbacklight
+
 ## graphics software
 sudo apt install inkscape gimp gcolor2
 

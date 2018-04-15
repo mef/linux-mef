@@ -76,6 +76,19 @@ $ ./bunsenLabs-helium-setup.sh
 * create `.ssh/config`
 * add public key to relevant servers and test all accesses
 
+to work around kvm permission denied error, reload of kvm kernel modules was necessary:
+
+````bash
+sudo rmmod kvm_intel
+sudo rmmod kvm
+sudo modprobe kvm
+sudo modprobe kvm_intel
+````
+
+
+Lookup windows key with:
+
+    sudo cat /sys/firmware/acpi/tables/MSDM
 
 #### wip
 
