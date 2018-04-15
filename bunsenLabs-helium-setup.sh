@@ -1,5 +1,15 @@
 #!/bin/bash
+#############################################################################
+##
+## Configure keyboard layout
+##
+#############################################################################
 
+read -p "let's start by configuring the keyboard" dummy
+
+
+
+sudo dpkg-reconfigure keyboard-configuration
 #############################################################################
 ##
 ## Configure fonts
