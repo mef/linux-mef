@@ -7,9 +7,35 @@
 
 read -p "let's start by configuring the keyboard" dummy
 
-
-
 sudo dpkg-reconfigure keyboard-configuration
+
+
+#############################################################################
+##
+## Copy custom config files
+## 
+## a bit like https://github.com/BunsenLabs/bunsen-configs
+##
+#############################################################################
+
+echo config
+
+bkp_sfx="~$( date +%FT%T )~"
+
+rsync -rlb --checksum --suffix="$bkp_sfx" --safe-links skel/ "$HOME"
+
+#############################################################################
+##
+## lowercase names for directories
+##
+#############################################################################
+
+mkdir ~/documents ~/downloads ~/music ~/pictures ~/public ~/templates ~/videos
+xdg-user-dirs-update
+
+## todo run this post-install?
+rmdir ~/Documents ~/Downloads ~/Music ~/Pictures ~/Public ~/Templates ~/Videos
+
 #############################################################################
 ##
 ## Configure fonts
@@ -24,25 +50,11 @@ sudo apt install fonts-liberation2
 ## raleway, roboto
 
 ## Set a nicer default monospace font
-set i- 's/Inconsolata/Dejavu Sans Mono/g' .config/fontconfig/fonts.conf
+sed -i 's/Inconsolata/Dejavu Sans Mono/g' ~/.config/fontconfig/fonts.conf
 
 ## remove heavy unused font
 sudo apt remove fonts-noto-cjk
 
-
-#############################################################################
-##
-## Custom configuration
-## 
-## a bit like https://github.com/BunsenLabs/bunsen-configs
-##
-#############################################################################
-
-echo config
-
-bkp_sfx="~$( date +%FT%T )~"
-
-rsync -rlb --checksum --suffix="$bkp_sfx" --safe-links skel/ "$HOME"
 
 
 #############################################################################
