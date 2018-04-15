@@ -1,11 +1,25 @@
 #!/bin/bash
 #############################################################################
 ##
-## Configure keyboard layout
+## Let's start by making ourselves comfortable
 ##
 #############################################################################
 
-read -p "let's start by configuring the keyboard" dummy
+echo disable touchpad
+
+## disable touchpad at startup + create enable script
+TOUCHPADID=`xinput list | grep TouchPad | awk '{print $6}' | cut -c4,5`
+echo 'xinput disable $TOUCHPADID' >> ~/.config/openbox/autostart.sh
+echo 'xinput enable $TOUCHPADID' > ~/bin/enable-touchpad.sh
+
+## disable in current session
+xinput disable $TOUCHPADID
+
+chmod +x ~/bin/enable-touchpad.sh
+
+
+## Configure keyboard layout
+read -p "Follow steps to configure the keyboard Y/y :p" dummy
 
 sudo dpkg-reconfigure keyboard-configuration
 
@@ -24,6 +38,7 @@ bkp_sfx="~$( date +%FT%T )~"
 
 rsync -rlb --checksum --suffix="$bkp_sfx" --safe-links skel/ "$HOME"
 
+
 #############################################################################
 ##
 ## lowercase names for directories
@@ -35,6 +50,7 @@ xdg-user-dirs-update
 
 ## todo run this post-install?
 rmdir ~/Documents ~/Downloads ~/Music ~/Pictures ~/Public ~/Templates ~/Videos
+
 
 #############################################################################
 ##
@@ -56,6 +72,18 @@ sed -i 's/Inconsolata/Dejavu Sans Mono/g' ~/.config/fontconfig/fonts.conf
 sudo apt remove fonts-noto-cjk
 
 
+#############################################################################
+##
+## Thinkpad-only stuff
+##
+#############################################################################
+
+echo thinkpad stuff
+
+## Install tlp
+## tp_smapi is not supported on my machine, install acpi_call module instead
+sudo apt install tlp acpi-call-dkms
+
 
 #############################################################################
 ##
@@ -66,18 +94,18 @@ sudo apt remove fonts-noto-cjk
 echo extra software
 
 ## graphics software
-sudo apt install inkscape gimp gcolor
+sudo apt install inkscape gimp gcolor2
 
 
 ## ffmpeg
-
-## skype - do I really need it? via this method https://linuxconfig.org/how-to-install-skype-on-debian-9-stretch-linux#comment-3752388010 ?
 
 ## screen color manager
 sudo apt install redshift
 
 ## utilities
 sudo apt install awscli baobab
+
+## skype - do I really need it? via this method https://linuxconfig.org/how-to-install-skype-on-debian-9-stretch-linux#comment-3752388010 ?
 
 
 ## virtual machine
@@ -96,6 +124,8 @@ echo dev software
 ## mariadb: let data and tmp directories inside /home partition
 
 
+
+
 #############################################################################
 ##
 ## Unattended-upgrades
@@ -108,25 +138,7 @@ sudo dpkg-reconfigure exim4-config
 ## todo
 
 
-#############################################################################
-##
-## Thinkpad-only stuff
-##
-#############################################################################
 
-echo thinkpad stuff
-
-## Install tlp
-## tp_smapi is not supported on my machine, install acpi_call module instead
-sudo apt install tlp acpi-call-dkms
-
-
-## disable touchpad t startup + create enable script
-TOUCHPADID=`xinput list | grep TouchPad | awk '{print $6}' | cut -c4,5`
-echo 'xinput disable $TOUCHPADID' >> ~/.config/openbox/autostart.sh
-echo 'xinput enable $TOUCHPADID' > ~/bin/enable-touchpad.sh
-
-chmod +x ~/bin/enable-touchpad.sh
 
 #############################################################################
 ##
@@ -136,4 +148,4 @@ chmod +x ~/bin/enable-touchpad.sh
 
 echo cleanup
 
-sudo apt-get clean
+sudo apt clean

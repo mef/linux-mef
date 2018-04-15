@@ -55,6 +55,9 @@ $ git config --global user.email johndoe@example.com
 
 * clone this repository, and run the setup script
 
+Notes:
+  * set keyboard layout as UK extended: select English (UK, ~international with dead keys~ extended WinKeys)
+
 ````bash
 $ mkdir -p ~/development/other
 $ cd ~/development/other
@@ -63,8 +66,18 @@ $ cd linux-mef
 $ ./bunsenLabs-helium-setup.sh
 ````
 
-* set keyboard layout as UK extended: select English (UK, ~international with dead keys~ extended WinKeys)
 
+#### manual actions
+
+* adjust battery charge thresholds in `/etc/default/tlp`
+* select theme monokai-mef them in geany "View\Change color scheme" menu
+* activate line wrap in geany "Document" menu
+* generate ssh keys `ssh-keygen t rsa -b 4096 -C "johndoe@example.com"`
+* create `.ssh/config`
+* add public key to relevant servers and test all accesses
+
+
+#### wip
 
 * firefox+ firefox developer edition, addons + config, userContent and userchrome
 * create ssh keys, and register them to relevant servers
