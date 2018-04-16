@@ -33,8 +33,6 @@ Work in progress.
 
 
 
-
-
 /dev/sda3 should be set as noatime and have journaling disabled
 
 
@@ -105,6 +103,7 @@ Lookup windows key with:
 
 #### wip
 
+* auto-login at boot
 * firefox+ firefox developer edition, addons + config, userContent and userchrome
 * create ssh keys, and register them to relevant servers
 * setup anti-theft system - like this > http://tristan.terpelle.be/prey-anti-theft-on-debian.html ?
