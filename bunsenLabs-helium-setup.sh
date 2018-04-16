@@ -9,8 +9,8 @@ echo disable touchpad
 
 ## disable touchpad at startup + create enable script
 TOUCHPADID=`xinput list | grep TouchPad | awk '{print $6}' | cut -c4,5`
-echo 'xinput disable $TOUCHPADID' >> ~/.config/openbox/autostart.sh
-echo 'xinput enable $TOUCHPADID' > ~/bin/enable-touchpad.sh
+echo 'xinput disable' $TOUCHPADID >> ~/.config/openbox/autostart.sh
+echo 'xinput enable' $TOUCHPADID > ~/bin/enable-touchpad.sh
 
 ## disable in current session
 xinput disable $TOUCHPADID
