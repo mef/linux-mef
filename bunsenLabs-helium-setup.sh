@@ -9,7 +9,8 @@ echo disable touchpad
 
 ## disable touchpad at startup + create enable script
 TOUCHPADID=`xinput list | grep TouchPad | awk '{print $6}' | cut -c4,5`
-echo 'xinput disable' $TOUCHPADID >> ~/.config/openbox/autostart.sh
+echo '## disable touchpad' >> ~/.config/openbox/autostart
+echo 'xinput disable' $TOUCHPADID >> ~/.config/openbox/autostart
 echo 'xinput enable' $TOUCHPADID > ~/bin/enable-touchpad.sh
 
 ## disable in current session
@@ -45,11 +46,14 @@ rsync -rlb --checksum --suffix="$bkp_sfx" --safe-links skel/ "$HOME"
 ##
 #############################################################################
 
-mkdir ~/documents ~/downloads ~/music ~/pictures ~/public ~/templates ~/videos
+mv ~/Documents ~/documents
+mv ~/Downloads ~/downloads
+mv ~/Music     ~/music
+mv ~/Pictures  ~/pictures
+mv ~/Public    ~/public
+mv ~/Templates ~/templates
+mv ~/Videos    ~/videos
 xdg-user-dirs-update
-
-## todo run this post-install?
-rmdir ~/Documents ~/Downloads ~/Music ~/Pictures ~/Public ~/Templates ~/Videos
 
 
 #############################################################################
@@ -93,11 +97,23 @@ sudo apt install tlp acpi-call-dkms
 
 echo extra software
 
+sudo mkdir /opt/c-user
+sudo chown c-user:c-user /opt/c-user
+
 ## xbacklight
 #sudo apt install xbacklight
 
 ## graphics software
 sudo apt install inkscape gimp gcolor2
+
+## chromium
+sudo apt-get install chromium
+
+
+## For some reason, programmatic download retrieves windows .zip instead of the linux 64 bits version.
+#cd /opt/c-user
+#wget -O firefox.tar.bz2 https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US && tar -zxvf firefox.tar.bz2
+#wget -O firefox-dev.tar.bz2 https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US & tar -zxvf firefox-dev.tar.bz2
 
 
 ## ffmpeg
