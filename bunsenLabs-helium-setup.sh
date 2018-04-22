@@ -105,7 +105,7 @@ sudo chown c-user:c-user /opt/c-user
 #sudo apt install xbacklight
 
 ## graphics software
-sudo apt install inkscape gimp gcolor2
+sudo apt install inkscape gimp gcolor2 cheese
 
 ## audio software
 sudo apt install audacity
