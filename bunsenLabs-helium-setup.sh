@@ -117,13 +117,6 @@ sudo apt-get install chromium
 #wget -O firefox.tar.bz2 https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US && tar -zxvf firefox.tar.bz2
 #wget -O firefox-dev.tar.bz2 https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US & tar -zxvf firefox-dev.tar.bz2
 
-## gephi
-cd /opt/c-user/
-wget -P https://github.com/gephi/gephi/releases/download/v0.9.2/gephi-0.9.2-linux.tar.gz
-tar -zxvf gephi-0.9.2-linux.tar.gz
-ln -s /opt/c-user/gephi-0.9.2/bin/gephi ~/bin/
-cd
-
 
 ## ffmpeg
 
@@ -150,23 +143,38 @@ sudo apt install awscli baobab
 
 echo dev software
 
+## redis 4.x
+sudo apt install -t stretch-backports redis
+
+## gephi
+cd /opt/c-user/
+wget -P https://github.com/gephi/gephi/releases/download/v0.9.2/gephi-0.9.2-linux.tar.gz
+tar -zxvf gephi-0.9.2-linux.tar.gz
+ln -s /opt/c-user/gephi-0.9.2/bin/gephi ~/bin/
+cd
+
 ## mariadb: let data and tmp directories inside /home partition
+sudo apt install mariadb-server mariadb-client
 
+sudo mysql_secure_installation
 
+sudo systemctl stop mariadb
+sleep 10
+sudo systemctl status mariadb
+sudo mv /var/lib/mysql /home/
+sudo mkdir /home/mysql/tmp
+sudo chown mysql:mysql /home/mysql/tmp
 
+## update directories in config file
+sudo sed -i 's#/var/lib/mysql#/home/mysql#g' /etc/mysql/mariadb.conf.d/50-server.cnf
+sudo sed -i 's#/tmp#/home/mysql/tmp#g' /etc/mysql/mariadb.conf.d/50-server.cnf
 
-#############################################################################
-##
-## Unattended-upgrades
-##
-#############################################################################
+## allow mysql to access home directory in  daemon
+sudo sed -i 's/ProtectHome=true/ProtectHome=false/' /etc/systemd/system/mysql.service
 
-## configure exim
-sudo dpkg-reconfigure exim4-config
-
-## todo
-
-
+sudo systemctl start mysql
+sleep 10
+sudo systemctl status mariadb
 
 
 #############################################################################

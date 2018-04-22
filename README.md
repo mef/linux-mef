@@ -175,7 +175,5 @@ Lookup windows key with:
 
 * firefox+ firefox developer edition, addons + config, userContent and userchrome
 * audacious or quodLibet as replacement of decibel-audio-player?
-* gephi 0.9.2 build containing HITS calculation
 * mariadb
-* redis
 * raleway and roboto fonts
