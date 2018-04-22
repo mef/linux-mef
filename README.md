@@ -101,9 +101,10 @@ Then add the user to the group autologin:
 
 [source](https://wiki.debian.org/UnattendedUpgrades).
 
-##### select theme monokai-mef them in geany "View\Change color scheme" menu
+##### Geany
 
-##### activate line wrap in geany "Document" menu
+* select theme monokai-mef them in geany "View\Change color scheme" menu
+* activate line wrap in geany `Preferences/editor`
 
 ##### ssh
 
