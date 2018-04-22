@@ -75,9 +75,35 @@ $ ./bunsenLabs-helium-setup.sh
 * add public key to relevant servers and test all accesses
 
 
+Download firefox stable from https://www.mozilla.org/en-US/firefox/
+Download firefox developer edition from https://www.mozilla.org/en-US/firefox/channel/desktop/
+
+Unpack both tarballs inside /opt/c-user/firefox and firefox-dev, respectively
+
+    sudo apt remove firefox-esr firefox
+    sudo ln -s /opt/c-user/firefox/firefox /usr/bin/firefox
+    sudo ln -s /opt/c-user/firefox-dev/firefox /usr/bin/firefox-dev
+    sudo update-alternatives --install /usr/bin/x-www-browser x-www-browser /opt/c-user/firefox/firefox 200
+    sudo update-alternatives --install /usr/bin/x-www-browser x-www-browser /opt/c-user/firefox-dev/firefox 100
+
+
+to work around kvm permission denied error, reload of kvm kernel modules was necessary:
+
+````bash
+sudo rmmod kvm_intel
+sudo rmmod kvm
+sudo modprobe kvm
+sudo modprobe kvm_intel
+````
+
+
+Lookup windows key with:
+
+    sudo cat /sys/firmware/acpi/tables/MSDM
+
 #### wip
 
-* auto-login at boot
+* auto-login at boot -cf. [this](https://wiki.archlinux.org/index.php/LightDM#Enabling_autologin)
 * firefox+ firefox developer edition, addons + config, userContent and userchrome
 * gephi 0.9.2 build containing HITS calculation
 * create ssh keys, and register them to relevant servers
