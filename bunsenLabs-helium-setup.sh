@@ -67,8 +67,6 @@ echo fonts
 ## fonts
 sudo apt install fonts-liberation2
 
-## raleway, roboto
-
 ## Set a nicer default monospace font
 sed -i 's/Inconsolata/Dejavu Sans Mono/g' ~/.config/fontconfig/fonts.conf
 
@@ -119,8 +117,18 @@ sudo apt-get install chromium
 #wget -O firefox.tar.bz2 https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US && tar -zxvf firefox.tar.bz2
 #wget -O firefox-dev.tar.bz2 https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US & tar -zxvf firefox-dev.tar.bz2
 
+## gephi
+cd /opt/c-user/
+wget -P https://github.com/gephi/gephi/releases/download/v0.9.2/gephi-0.9.2-linux.tar.gz
+tar -zxvf gephi-0.9.2-linux.tar.gz
+ln -s /opt/c-user/gephi-0.9.2/bin/gephi ~/bin/
+cd
+
 
 ## ffmpeg
+
+## unattended-upgrades
+sudo apt-get install unattended-upgrades apt-listchanges
 
 ## screen color manager
 sudo apt install redshift
@@ -141,8 +149,6 @@ sudo apt install awscli baobab
 #############################################################################
 
 echo dev software
-
-## node.js via nvm
 
 ## mariadb: let data and tmp directories inside /home partition
 

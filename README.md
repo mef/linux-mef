@@ -44,17 +44,21 @@ Work in progress.
 Once bunsen is installed, and bl-welcome has been run.
 
 
-* configure git
+##### configure git
 
 ````bash
 $ git config --global user.name "John Doe"
 $ git config --global user.email johndoe@example.com
 ````
 
-* clone this repository, and run the setup script
+##### prepare and run automated installations
+
+
+
 
 Notes:
   * set keyboard layout as UK extended: select English (UK, ~international with dead keys~ extended WinKeys)
+
 
 ````bash
 $ mkdir -p ~/development/other
@@ -86,6 +90,16 @@ Then add the user to the group autologin:
 [source](https://wiki.archlinux.org/index.php/LightDM#Enabling_autologin)
 
 ##### adjust battery charge thresholds in `/etc/default/tlp`
+
+#### unattended-upgrades
+
+* edit the active origin pattern inside `/etc/apt/apt.conf.d/50unattended-upgrades`, e.g. set the following one:
+
+````
+      "o=Debian,n=stretch";
+````
+
+[source](https://wiki.debian.org/UnattendedUpgrades).
 
 ##### select theme monokai-mef them in geany "View\Change color scheme" menu
 
@@ -122,6 +136,26 @@ Unpack both tarballs inside /opt/c-user/firefox and firefox-dev, respectively
 2. during config, solve bug by applying [this workaround](https://github.com/prey/prey-node-client/issues/355#issuecomment-368228502). - if still relevant
 3. validate that it works by setting device to missing.
 
+#### nvm and node.js
+
+cf. https://github.com/creationix/nvm
+
+Then `nvm install --lts`
+
+#### gimp config
+
+toggle `Windows\Single-window mode`
+
+### gephi config
+
+edit `gephi-0.9.2/etc/gephi.conf` and set suitable values to `-Xms` and `-Xmx` parameters
+
+e.g. 
+
+    Xms512m -J-Xmx4096m
+
+
+
 ##### virtual machine setup (wip)
 
 to work around kvm permission denied error, reload of kvm kernel modules was necessary:
@@ -142,8 +176,6 @@ Lookup windows key with:
 * firefox+ firefox developer edition, addons + config, userContent and userchrome
 * audacious or quodLibet as replacement of decibel-audio-player?
 * gephi 0.9.2 build containing HITS calculation
-* setup anti-theft system - like this > http://tristan.terpelle.be/prey-anti-theft-on-debian.html ?
 * mariadb
 * redis
-* node.js
-* unattended-upgrades
+* raleway and roboto fonts
