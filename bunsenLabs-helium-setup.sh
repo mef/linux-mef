@@ -24,6 +24,9 @@ read -p "Follow steps to configure the keyboard Y/y :p" dummy
 
 sudo dpkg-reconfigure keyboard-configuration
 
+## tweak graphics
+sudo apt purge xserver-xorg-video-intel
+
 
 #############################################################################
 ##
