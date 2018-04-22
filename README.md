@@ -79,5 +79,6 @@ $ ./bunsenLabs-helium-setup.sh
 
 * auto-login at boot
 * firefox+ firefox developer edition, addons + config, userContent and userchrome
+* gephi 0.9.2 build containing HITS calculation
 * create ssh keys, and register them to relevant servers
 * setup anti-theft system - like this > http://tristan.terpelle.be/prey-anti-theft-on-debian.html ?
