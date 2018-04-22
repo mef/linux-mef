@@ -106,6 +106,10 @@ sudo chown c-user:c-user /opt/c-user
 ## graphics software
 sudo apt install inkscape gimp gcolor2
 
+## audio software
+sudo apt install audacity
+
+
 ## chromium
 sudo apt-get install chromium
 
