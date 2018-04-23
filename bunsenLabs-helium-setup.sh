@@ -27,6 +27,11 @@ sudo dpkg-reconfigure keyboard-configuration
 ## tweak graphics
 sudo apt purge xserver-xorg-video-intel
 
+## activate redshift at boot
+echo '' >> ~/.config/openbox/autostart
+echo '(sleep 3; redshift-be.sh) &' >> ~/.config/openbox/autostart
+
+redshift-be.sh &
 
 #############################################################################
 ##
