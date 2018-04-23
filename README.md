@@ -118,10 +118,21 @@ Add or modify the following inside `~/.config/openbox/rc.xml`:
 
 [source](https://wiki.debian.org/UnattendedUpgrades).
 
+#### configure awscli
+
+cf. https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html
+
+Default region: eu-west-1
+Default output format: json
+
+Retrieve data sync scripts from s3, put them in bin directory
+
 #### Geany
 
 * select theme monokai-mef them in geany "View\Change color scheme" menu
 * activate line wrap in geany `Preferences/editor`
+* add `Search field` and `Goto field` to toolbar
+* swap keybindings of `Find` and `Switch to search bar`
 
 #### ssh
 
@@ -176,6 +187,14 @@ e.g.
 
 #### virtual machine setup (wip)
 
+create the VM using virt-manager.
+
+Lookup windows key with:
+
+    sudo cat /sys/firmware/acpi/tables/MSDM
+
+If necessary, adapt VM name inside `~/bin/windows`.
+
 to work around kvm permission denied error, reload of kvm kernel modules was necessary:
 
 ````bash
@@ -184,10 +203,6 @@ sudo rmmod kvm
 sudo modprobe kvm
 sudo modprobe kvm_intel
 ````
-
-Lookup windows key with:
-
-    sudo cat /sys/firmware/acpi/tables/MSDM
 
 #### wip
 

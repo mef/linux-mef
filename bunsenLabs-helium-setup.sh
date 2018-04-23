@@ -27,6 +27,14 @@ sudo dpkg-reconfigure keyboard-configuration
 ## tweak graphics
 sudo apt purge xserver-xorg-video-intel
 
+## activate redshift at boot
+echo '' >> ~/.config/openbox/autostart
+echo '(sleep 3; redshift-be.sh) &' >> ~/.config/openbox/autostart
+
+redshift-be.sh &
+
+## set urxvt as default terminal
+sudo update-alternatives --set x-terminal-emulator /usr/bin/urxvt
 
 #############################################################################
 ##
@@ -136,7 +144,12 @@ sudo apt install awscli baobab
 
 
 ## virtual machine
-
+sudo apt install qemu-kvm libvirt-clients virt-manager
+sudo adduser c-user kvm
+sudo rmmod kvm_intel
+sudo rmmod kvm
+sudo modprobe kvm
+sudo modprobe kvm_intel
 
 #############################################################################
 ##
