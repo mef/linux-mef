@@ -1,0 +1,18 @@
+#!/bin/bash
+
+## start the network in case it is not active
+netStatus=`virsh net-list --all | grep default | awk '{ print $2 }'`
+
+if [ "$netStatus" = "inactive" ] ; then
+  virsh net-start default
+fi
+
+## start the VM in case it is not started
+VMStatus=`virsh list | grep win8 | awk '{ print $3 }'`
+
+if [ ! "$VMStatus" = "running" ] ; then
+  virsh start win8.1
+fi
+
+## connect to the GUI
+virt-viewer win8.1

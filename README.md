@@ -187,6 +187,14 @@ e.g.
 
 #### virtual machine setup (wip)
 
+create the VM using virt-manager.
+
+Lookup windows key with:
+
+    sudo cat /sys/firmware/acpi/tables/MSDM
+
+If necessary, adapt VM name inside `~/bin/windows`.
+
 to work around kvm permission denied error, reload of kvm kernel modules was necessary:
 
 ````bash
@@ -195,10 +203,6 @@ sudo rmmod kvm
 sudo modprobe kvm
 sudo modprobe kvm_intel
 ````
-
-Lookup windows key with:
-
-    sudo cat /sys/firmware/acpi/tables/MSDM
 
 #### wip
 
