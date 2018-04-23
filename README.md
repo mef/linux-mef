@@ -82,6 +82,30 @@ Then add the user to the group autologin:
 
 [source](https://wiki.archlinux.org/index.php/LightDM#Enabling_autologin)
 
+#### custom shortcuts
+
+Add or modify the following inside `~/.config/openbox/rc.xml`:
+
+* only one desktop
+
+    <number>1</number>
+
+* keyboard shortcuts
+
+````bash
+    <!-- Override Ctrl-Q with dummy action -->
+    <keybind key="C-Q">
+      <action name="Execute">
+        <command>/bin/false</command>
+      </action>
+    </keybind>
+
+    <!-- Maximize current window -->
+    <keybind key="W-Next">
+      <action name="ToggleMaximize"/>
+    </keybind>
+````
+
 #### adjust battery charge thresholds in `/etc/default/tlp`
 
 #### configure unattended-upgrades
