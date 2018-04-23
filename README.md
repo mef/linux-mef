@@ -51,13 +51,9 @@ $ git config --global user.name "John Doe"
 $ git config --global user.email johndoe@example.com
 ````
 
-##### prepare and run automated installations
+##### run automated installations
 
-
-
-
-Notes:
-  * set keyboard layout as UK extended: select English (UK, ~international with dead keys~ extended WinKeys)
+N.B: when prompted, set keyboard layout as UK extended: select English (UK, ~international with dead keys~ extended WinKeys)
 
 
 ````bash
@@ -68,10 +64,7 @@ $ cd linux-mef
 $ ./bunsenLabs-helium-setup.sh
 ````
 
-
-#### manual actions
-
-##### enable autologin
+#### enable autologin
 
 uncomment `autologin-user` inside `/etc/lightdm/lightdm.conf`, using actual username:
 
@@ -89,9 +82,33 @@ Then add the user to the group autologin:
 
 [source](https://wiki.archlinux.org/index.php/LightDM#Enabling_autologin)
 
-##### adjust battery charge thresholds in `/etc/default/tlp`
+#### custom shortcuts
 
-#### unattended-upgrades
+Add or modify the following inside `~/.config/openbox/rc.xml`:
+
+* only one desktop
+
+    <number>1</number>
+
+* keyboard shortcuts
+
+````bash
+    <!-- Override Ctrl-Q with dummy action -->
+    <keybind key="C-Q">
+      <action name="Execute">
+        <command>/bin/false</command>
+      </action>
+    </keybind>
+
+    <!-- Maximize current window -->
+    <keybind key="W-Next">
+      <action name="ToggleMaximize"/>
+    </keybind>
+````
+
+#### adjust battery charge thresholds in `/etc/default/tlp`
+
+#### configure unattended-upgrades
 
 * edit the active origin pattern inside `/etc/apt/apt.conf.d/50unattended-upgrades`, e.g. set the following one:
 
@@ -101,12 +118,12 @@ Then add the user to the group autologin:
 
 [source](https://wiki.debian.org/UnattendedUpgrades).
 
-##### Geany
+#### Geany
 
 * select theme monokai-mef them in geany "View\Change color scheme" menu
 * activate line wrap in geany `Preferences/editor`
 
-##### ssh
+#### ssh
 
 * generate key
 
@@ -118,7 +135,7 @@ ssh-keygen t rsa -b 4096 -C "johndoe@example.com"`
 * test all accesses
 
 
-##### firefox setup
+#### firefox setup
 
 Download firefox stable from https://www.mozilla.org/en-US/firefox/
 Download firefox developer edition from https://www.mozilla.org/en-US/firefox/channel/desktop/
@@ -131,7 +148,7 @@ Unpack both tarballs inside /opt/c-user/firefox and firefox-dev, respectively
     sudo update-alternatives --install /usr/bin/x-www-browser x-www-browser /opt/c-user/firefox/firefox 200
     sudo update-alternatives --install /usr/bin/x-www-browser x-www-browser /opt/c-user/firefox-dev/firefox 100
 
-##### anti-theft system
+#### anti-theft system
 
 1. install prey `.deb` package from https://panel.preyproject.com
 2. during config, solve bug by applying [this workaround](https://github.com/prey/prey-node-client/issues/355#issuecomment-368228502). - if still relevant
@@ -147,7 +164,7 @@ Then `nvm install --lts`
 
 toggle `Windows\Single-window mode`
 
-### gephi config
+#### gephi config
 
 edit `gephi-0.9.2/etc/gephi.conf` and set suitable values to `-Xms` and `-Xmx` parameters
 
@@ -157,7 +174,7 @@ e.g.
 
 
 
-##### virtual machine setup (wip)
+#### virtual machine setup (wip)
 
 to work around kvm permission denied error, reload of kvm kernel modules was necessary:
 
