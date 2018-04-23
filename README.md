@@ -193,5 +193,4 @@ Lookup windows key with:
 
 * firefox+ firefox developer edition, addons + config, userContent and userchrome
 * audacious or quodLibet as replacement of decibel-audio-player?
-* mariadb
 * raleway and roboto fonts
