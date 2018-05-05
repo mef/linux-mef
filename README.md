@@ -189,6 +189,15 @@ e.g.
 
     Xms512m -J-Xmx4096m
 
+#### databases
+
+restore dumps from backup
+
+#### development
+
+1. clone git repositories
+2. install dependencies (`npm install`)
+3. retrieve params / config files from backup
 
 
 #### virtual machine setup (wip)
