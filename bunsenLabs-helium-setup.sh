@@ -64,6 +64,7 @@ mv ~/Pictures  ~/pictures
 mv ~/Public    ~/public
 mv ~/Templates ~/templates
 mv ~/Videos    ~/videos
+
 xdg-user-dirs-update
 
 
@@ -118,9 +119,11 @@ sudo apt install inkscape gimp gcolor2 cheese
 ## audio software
 sudo apt install audacity
 
-
 ## chromium
-sudo apt-get install chromium
+sudo apt install chromium
+
+## office
+sudo apt install libreoffice-calc libreoffice-impress
 
 
 ## For some reason, programmatic download retrieves windows .zip instead of the linux 64 bits version.
@@ -201,4 +204,5 @@ sudo systemctl status mariadb
 
 echo cleanup
 
+## delete apt cache
 sudo apt clean
