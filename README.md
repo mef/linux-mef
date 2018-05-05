@@ -165,6 +165,12 @@ Unpack both tarballs inside /opt/c-user/firefox and firefox-dev, respectively
 2. during config, solve bug by applying [this workaround](https://github.com/prey/prey-node-client/issues/355#issuecomment-368228502). - if still relevant
 3. validate that it works by setting device to missing.
 
+### web browsers config
+
+1. install ublock origin in firefox and firefox developer edition (also in the VM) https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/?src=search
+2. install ublock origin in chromium
+3. retrieve userChrome.css and userContent.css from backup, and copy into firefox profile directories.
+
 #### nvm and node.js
 
 cf. https://github.com/creationix/nvm
@@ -206,6 +212,6 @@ sudo modprobe kvm_intel
 
 #### wip
 
-* firefox+ firefox developer edition, addons + config, userContent and userchrome
 * audacious or quodLibet as replacement of decibel-audio-player?
 * raleway and roboto fonts
+* ublock origin custom filters / rules
