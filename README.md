@@ -198,6 +198,7 @@ restore dumps from backup
 1. clone git repositories
 2. install dependencies (`npm install`)
 3. retrieve params / config files from backup
+4. retrieve custom hosts and store in /etc/hosts
 
 
 #### virtual machine setup (wip)

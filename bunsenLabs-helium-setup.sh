@@ -162,6 +162,9 @@ sudo modprobe kvm_intel
 
 echo dev software
 
+## dependencies
+sudo apt install g++
+
 ## redis 4.x
 sudo apt install -t stretch-backports redis
 
@@ -195,6 +198,8 @@ sudo systemctl start mysql
 sleep 10
 sudo systemctl status mariadb
 
+## configure git to cache credentials
+git config credential.helper cache
 
 #############################################################################
 ##
