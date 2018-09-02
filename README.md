@@ -201,6 +201,14 @@ restore dumps from backup
 4. retrieve custom hosts and store in /etc/hosts
 
 
+#### http server
+
+Once node.js is installed, run the following
+
+````bash
+npm install http-server -g
+````
+
 #### virtual machine setup (wip)
 
 create the VM using virt-manager.
