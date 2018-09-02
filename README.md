@@ -139,7 +139,7 @@ Retrieve data sync scripts from s3, put them in bin directory
 * generate key
 
 ````bash
-ssh-keygen t rsa -b 4096 -C "johndoe@example.com"`
+ssh-keygen -o -a 100 -t ed25519
 ````
 * create and complete `.ssh/config`
 * add public key to relevant servers 
