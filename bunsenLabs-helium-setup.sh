@@ -141,7 +141,7 @@ sudo apt-get install unattended-upgrades apt-listchanges
 sudo apt install redshift
 
 ## utilities
-sudo apt install awscli baobab
+sudo apt install awscli baobab pdftk
 
 ## skype - do I really need it? via this method https://linuxconfig.org/how-to-install-skype-on-debian-9-stretch-linux#comment-3752388010 ?
 
