@@ -1,4 +1,6 @@
 #!/bin/bash
+set -euo pipefail
+
 #############################################################################
 ##
 ## Let's start by making ourselves comfortable
