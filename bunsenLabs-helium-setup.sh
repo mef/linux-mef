@@ -127,6 +127,9 @@ sudo apt install chromium
 ## office
 sudo apt install libreoffice-calc libreoffice-impress
 
+## image optimization
+sudo apt install optipng libjpeg-turbo-progs
+
 
 ## For some reason, programmatic download retrieves windows .zip instead of the linux 64 bits version.
 #cd /opt/c-user
