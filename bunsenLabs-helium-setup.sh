@@ -34,7 +34,7 @@ echo '' >> ~/.config/openbox/autostart
 echo '(sleep 3; redshift-be.sh) &' >> ~/.config/openbox/autostart
 
 ## set urxvt as default terminal
-sudo update-alternatives --set x-terminal-emulator /usr/bin/urxvt
+# sudo update-alternatives --set x-terminal-emulator /usr/bin/urxvt
 
 #############################################################################
 ##
