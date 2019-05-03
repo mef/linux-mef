@@ -147,7 +147,6 @@ sudo apt install awscli baobab pdftk
 
 ## skype - do I really need it? via this method https://linuxconfig.org/how-to-install-skype-on-debian-9-stretch-linux#comment-3752388010 ?
 
-
 ## virtual machine
 sudo apt install qemu-kvm libvirt-clients virt-manager
 sudo adduser c-user kvm
@@ -169,6 +168,10 @@ sudo apt install g++
 
 ## redis 4.x
 sudo apt install -t stretch-backports redis
+
+
+## java
+sudo apt install openjdk-11-jdk openjdk-11-jre
 
 ## gephi
 cd /opt/c-user/

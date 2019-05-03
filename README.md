@@ -35,8 +35,9 @@ Work in progress.
 
 ### Post-install
 
-Once bunsen is installed, and bl-welcome has been run.
+Once bunsen is installed, and bl-welcome gets executed.
 
+Decline when prompted to install cvs or java.
 
 ##### setup and configure git
 
@@ -47,6 +48,8 @@ $ git config --global user.email johndoe@example.com
 ````
 
 ##### run automated installations
+
+(!) Make sure that you know what you're doing. study the script before executing it, or run selected steps manually to be safe.
 
 N.B: when prompted, set keyboard layout as UK extended: select English (UK, ~international with dead keys~ extended WinKeys)
 
@@ -83,7 +86,9 @@ Add or modify the following inside `~/.config/openbox/rc.xml`:
 
 * only one desktop
 
+````
     <number>1</number>
+````
 
 * keyboard shortcuts
 
@@ -170,7 +175,7 @@ Unpack both tarballs inside /opt/c-user/firefox and firefox-dev, respectively
 
 #### nvm and node.js
 
-cf. https://github.com/creationix/nvm
+cf. [install using git](https://github.com/nvm-sh/nvm#manual-install).
 
 Then `nvm install --lts`
 
