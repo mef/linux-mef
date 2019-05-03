@@ -13,8 +13,7 @@ Work in progress.
 
 ### Pre-install
 
-
-* check ssh accesses, be sure not to end up locked down from some server.
+* check ssh accesses, be sure not to end up locked out of some server.
 * Run backup scripts
 * Partition disks
 
@@ -31,12 +30,7 @@ Work in progress.
 * location: Belgium
 * locale: Ireland
 
-
-
 /dev/sda3 should be set as noatime and have journaling disabled
-
-
-
 
 
 ### Post-install
@@ -44,9 +38,10 @@ Work in progress.
 Once bunsen is installed, and bl-welcome has been run.
 
 
-##### configure git
+##### setup and configure git
 
 ````bash
+$ sudo apt install git
 $ git config --global user.name "John Doe"
 $ git config --global user.email johndoe@example.com
 ````
