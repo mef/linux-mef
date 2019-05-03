@@ -191,7 +191,9 @@ e.g.
 
 #### databases
 
-restore dumps from backup
+restore dumps from backup.
+
+For mariadb, in case the source OS is not usable, physical backups can be used ([instructions](https://www.linode.com/docs/databases/mysql/create-physical-backups-of-your-mariadb-or-mysql-databases/)).
 
 #### development
 
