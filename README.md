@@ -108,6 +108,10 @@ Add or modify the following inside `~/.config/openbox/rc.xml`:
 
 #### adjust battery charge thresholds in `/etc/default/tlp`
 
+#### locale setup
+
+Fix the locale so that Monday is the first day of the week. [Method #2](http://bitthinker.com/blog/en/troubles/how-to-change-first-week-day-in-xfce) here works for tint2's calendar.
+
 #### configure unattended-upgrades
 
 * edit the active origin pattern inside `/etc/apt/apt.conf.d/50unattended-upgrades`, e.g. set the following one:
@@ -178,6 +182,14 @@ Unpack both tarballs inside /opt/c-user/firefox and firefox-dev, respectively
 cf. [install using git](https://github.com/nvm-sh/nvm#manual-install).
 
 Then `nvm install --lts`
+
+#### vlc media player
+
+```
+## fix QT scaling for Hi-DPI screens for VLC media player
+echo 'QT_AUTO_SCREEN_SCALE_FACTOR=0' | sudo tee -a /etc/environment
+```
+
 
 #### gimp config
 

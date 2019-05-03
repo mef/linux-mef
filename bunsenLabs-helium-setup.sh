@@ -10,18 +10,19 @@ set -euo pipefail
 echo disable touchpad
 
 ## disable touchpad at startup + create enable script
+echo '' >> ~/.config/openbox/autostart
 echo '## disable touchpad' >> ~/.config/openbox/autostart
 echo "xinput disable" $(xinput list | grep TouchPad | awk '{print $6}' | cut -c4,5) >> ~/.config/openbox/autostart
 echo "xinput enable" $(xinput list | grep TouchPad | awk '{print $6}' | cut -c4,5) > ~/bin/enable-touchpad.sh
 
 ## disable in current session
-xinput disable $TOUCHPADID
+xinput disable $(xinput list | grep TouchPad | awk '{print $6}' | cut -c4,5)
 
 chmod +x ~/bin/enable-touchpad.sh
 
 
 ## Configure keyboard layout
-read -p "Follow steps to configure the keyboard Y/y :p" dummy
+read -p "Follow steps to configure the keyboard Y/y" dummy
 
 sudo dpkg-reconfigure keyboard-configuration
 
@@ -30,7 +31,7 @@ sudo apt purge xserver-xorg-video-intel
 
 ## activate redshift at boot
 echo '' >> ~/.config/openbox/autostart
-echo '(sleep 3; redshift-be.sh) &' >> ~/.config/openbox/autostart
+echo '(sleep 3; redshift-be) &' >> ~/.config/openbox/autostart
 
 ## set urxvt as default terminal
 # sudo update-alternatives --set x-terminal-emulator /usr/bin/urxvt
@@ -148,12 +149,12 @@ sudo apt install awscli baobab pdftk
 ## skype - do I really need it? via this method https://linuxconfig.org/how-to-install-skype-on-debian-9-stretch-linux#comment-3752388010 ?
 
 ## virtual machine
-sudo apt install qemu-kvm libvirt-clients virt-manager
-sudo adduser c-user kvm
-sudo rmmod kvm_intel
-sudo rmmod kvm
-sudo modprobe kvm
-sudo modprobe kvm_intel
+# sudo apt install qemu-kvm libvirt-clients virt-manager
+# sudo adduser c-user kvm
+# sudo rmmod kvm_intel
+# sudo rmmod kvm
+# sudo modprobe kvm
+# sudo modprobe kvm_intel
 
 #############################################################################
 ##
