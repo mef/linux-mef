@@ -173,7 +173,7 @@ sudo apt install -t stretch-backports redis
 
 ## gephi
 cd /opt/c-user/
-wget -P https://github.com/gephi/gephi/releases/download/v0.9.2/gephi-0.9.2-linux.tar.gz
+wget https://github.com/gephi/gephi/releases/download/v0.9.2/gephi-0.9.2-linux.tar.gz
 tar -zxvf gephi-0.9.2-linux.tar.gz
 ln -s /opt/c-user/gephi-0.9.2/bin/gephi ~/bin/
 cd
