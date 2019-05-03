@@ -39,7 +39,7 @@ echo '(sleep 3; redshift-be.sh) &' >> ~/.config/openbox/autostart
 #############################################################################
 ##
 ## Copy custom config files
-## 
+##
 ## a bit like https://github.com/BunsenLabs/bunsen-configs
 ##
 #############################################################################
@@ -187,17 +187,18 @@ sudo systemctl stop mariadb
 sleep 10
 sudo systemctl status mariadb
 sudo mv /var/lib/mysql /home/
-sudo mkdir /home/mysql/tmp
-sudo chown mysql:mysql /home/mysql/tmp
+sudo mkdir /home/mysqlTmp
+sudo chown mysql:mysql /home/mysqlTmp
 
 ## update directories in config file
 sudo sed -i 's#/var/lib/mysql#/home/mysql#g' /etc/mysql/mariadb.conf.d/50-server.cnf
-sudo sed -i 's#/tmp#/home/mysql/tmp#g' /etc/mysql/mariadb.conf.d/50-server.cnf
+sudo sed -i 's#/tmp#/home/mysqlTmp#g' /etc/mysql/mariadb.conf.d/50-server.cnf
 
 ## allow mysql to access home directory in  daemon
 sudo sed -i 's/ProtectHome=true/ProtectHome=false/' /etc/systemd/system/mysql.service
+sudo sed -i 's/ProtectHome=true/ProtectHome=false/' /lib/systemd/system/mariadb.service
 
-sudo systemctl start mysql
+sudo systemctl start mariadb
 sleep 10
 sudo systemctl status mariadb
 
