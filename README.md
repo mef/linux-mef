@@ -159,17 +159,19 @@ Unpack both tarballs inside /opt/c-user/firefox and firefox-dev, respectively
     sudo update-alternatives --install /usr/bin/x-www-browser x-www-browser /opt/c-user/firefox/firefox 200
     sudo update-alternatives --install /usr/bin/x-www-browser x-www-browser /opt/c-user/firefox-dev/firefox 100
 
-#### anti-theft system
-
-1. install prey `.deb` package from https://panel.preyproject.com
-2. during config, solve bug by applying [this workaround](https://github.com/prey/prey-node-client/issues/355#issuecomment-368228502). - if still relevant
-3. validate that it works by setting device to missing.
-
-### web browsers config
+#### web browsers config
 
 1. install ublock origin in firefox and firefox developer edition (also in the VM) https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/?src=search
 2. install ublock origin in chromium
 3. retrieve userChrome.css and userContent.css from backup, and copy into firefox profile directories.
+
+#### anti-theft system
+
+1. install prey `.deb` package from https://panel.preyproject.com
+2. configure prey, it may be necessary to launch the gui manually: `sudo /usr/lib/prey/current/bin/prey config gui`
+  * during config, solve bug by applying [this workaround](https://github.com/prey/prey-node-client/issues/355#issuecomment-368228502). - if still relevant
+3. enable prey service `sudo -u prey /usr/lib/prey/current/bin/prey config activate`
+4. validate that it works by setting device to missing
 
 #### nvm and node.js
 
@@ -191,9 +193,35 @@ e.g.
 
 #### databases
 
-restore dumps from backup.
+```
+## mariadb: let data and tmp directories inside /home partition
+sudo apt install mariadb-server mariadb-client
 
-For mariadb, in case the source OS is not usable, physical backups can be used ([instructions](https://www.linode.com/docs/databases/mysql/create-physical-backups-of-your-mariadb-or-mysql-databases/)).
+sudo mysql_secure_installation
+
+sudo systemctl stop mariadb
+sleep 10
+sudo systemctl status mariadb
+sudo mv /var/lib/mysql /home/
+sudo mkdir /home/mysqlTmp
+sudo chown mysql:mysql /home/mysqlTmp
+
+## update directories in config file
+sudo sed -i 's#/var/lib/mysql#/home/mysql#g' /etc/mysql/mariadb.conf.d/50-server.cnf
+sudo sed -i 's#/tmp#/home/mysqlTmp#g' /etc/mysql/mariadb.conf.d/50-server.cnf
+
+## allow mysql to access home directory in  daemon
+sudo sed -i 's/ProtectHome=true/ProtectHome=false/' /etc/systemd/system/mysql.service
+sudo sed -i 's/ProtectHome=true/ProtectHome=false/' /lib/systemd/system/mariadb.service
+
+sudo systemctl start mariadb
+sleep 10
+sudo systemctl status mariadb
+```
+
+If relevant, restore dumps from backup.
+
+For mariadb, in case the source OS is not usable for the creation of backups, physical backups can be used ([instructions](https://www.linode.com/docs/databases/mysql/create-physical-backups-of-your-mariadb-or-mysql-databases/)).
 
 #### development
 

@@ -10,10 +10,9 @@ set -euo pipefail
 echo disable touchpad
 
 ## disable touchpad at startup + create enable script
-TOUCHPADID=`xinput list | grep TouchPad | awk '{print $6}' | cut -c4,5`
 echo '## disable touchpad' >> ~/.config/openbox/autostart
-echo 'xinput disable' $TOUCHPADID >> ~/.config/openbox/autostart
-echo 'xinput enable' $TOUCHPADID > ~/bin/enable-touchpad.sh
+echo "xinput disable" $(xinput list | grep TouchPad | awk '{print $6}' | cut -c4,5) >> ~/.config/openbox/autostart
+echo "xinput enable" $(xinput list | grep TouchPad | awk '{print $6}' | cut -c4,5) > ~/bin/enable-touchpad.sh
 
 ## disable in current session
 xinput disable $TOUCHPADID
@@ -177,30 +176,6 @@ wget https://github.com/gephi/gephi/releases/download/v0.9.2/gephi-0.9.2-linux.t
 tar -zxvf gephi-0.9.2-linux.tar.gz
 ln -s /opt/c-user/gephi-0.9.2/bin/gephi ~/bin/
 cd
-
-## mariadb: let data and tmp directories inside /home partition
-sudo apt install mariadb-server mariadb-client
-
-sudo mysql_secure_installation
-
-sudo systemctl stop mariadb
-sleep 10
-sudo systemctl status mariadb
-sudo mv /var/lib/mysql /home/
-sudo mkdir /home/mysqlTmp
-sudo chown mysql:mysql /home/mysqlTmp
-
-## update directories in config file
-sudo sed -i 's#/var/lib/mysql#/home/mysql#g' /etc/mysql/mariadb.conf.d/50-server.cnf
-sudo sed -i 's#/tmp#/home/mysqlTmp#g' /etc/mysql/mariadb.conf.d/50-server.cnf
-
-## allow mysql to access home directory in  daemon
-sudo sed -i 's/ProtectHome=true/ProtectHome=false/' /etc/systemd/system/mysql.service
-sudo sed -i 's/ProtectHome=true/ProtectHome=false/' /lib/systemd/system/mariadb.service
-
-sudo systemctl start mariadb
-sleep 10
-sudo systemctl status mariadb
 
 ## configure git to cache credentials
 git config --global credential.helper cache
