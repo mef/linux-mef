@@ -1,34 +1,33 @@
-#!/bin/sh
+#!/bin/bash
+set -euo pipefail
 
-usage="usage: $0 -c {up|down}"
-command=
-increment=3%
-
-while getopts h o
-do case "$o" in
-    h) echo "$usage"; exit 0;;
-    ?) echo "$usage"; exit 0;;
-esac
-done
-
-shift $(($OPTIND - 1))
 command=$1
 
-if [ "$command" = "" ]; then
-    echo "usage: $0 {up|down}"
-    exit 0;
-fi
+## get current and max value
+cur=$(</sys/class/backlight/intel_backlight/brightness)
+max=$(</sys/class/backlight/intel_backlight/max_brightness)
 
-display_brightness=0
+if=/sys/class/backlight/intel_backlight/brightness
 
-if [ "$command" = "up" ]; then
-	xbacklight -inc $increment
-    display_brightness=$(xbacklight -get)
-fi
+step=50
 
-if [ "$command" = "down" ]; then
-    xbacklight -dec $increment
-    display_brightness=$(xbacklight -get)
-fi
+lower=$(($cur-$step))
+higher=$(($cur+$step))
 
-notify-send " " -t 500 -i xfpm-brightness-lcd -h int:value:$display_brightness -h string:synchronous:brightness
+## stay within suitable boundaries
+if ((higher>max)); then higher=$max; fi
+if ((lower<=0)); then lower=1; fi
+
+sel=
+case "$command" in
+	down) sel=$lower;;
+	up)   sel=$higher;;
+esac
+
+## debug logging (enable whenever necessary)
+# echo "echo $sel > $if"
+
+echo $sel > $if
+
+## notify change
+notify-send " " -t 500 -i xfpm-brightness-lcd -h int:value:$sel -h string:synchronous:brightness

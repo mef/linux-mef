@@ -93,6 +93,31 @@ Add or modify the following inside `~/.config/openbox/rc.xml`:
 * keyboard shortcuts
 
 ````bash
+    
+    <!-- Keybindings for brightness control -->
+    <keybind key="W-F5">
+      <action name="Execute">
+        <command>brightness down</command>
+      </action>
+    </keybind>
+    <keybind key="W-F6">
+      <action name="Execute">
+        <command>brightness up</command>
+      </action>
+    </keybind>
+    
+    <!-- Keybindings for volume control -->
+    <keybind key="W-F2">
+      <action name="Execute">
+        <command>vol down -i 10%</command>
+      </action>
+    </keybind>
+    <keybind key="W-F3">
+      <action name="Execute">
+        <command>vol up -i 10%</command>
+      </action>
+    </keybind>
+    
     <!-- Override Ctrl-Q with dummy action -->
     <keybind key="C-Q">
       <action name="Execute">
