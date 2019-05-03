@@ -33,8 +33,6 @@ sudo apt purge xserver-xorg-video-intel
 echo '' >> ~/.config/openbox/autostart
 echo '(sleep 3; redshift-be.sh) &' >> ~/.config/openbox/autostart
 
-redshift-be.sh &
-
 ## set urxvt as default terminal
 sudo update-alternatives --set x-terminal-emulator /usr/bin/urxvt
 
