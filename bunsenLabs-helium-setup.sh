@@ -203,7 +203,7 @@ sleep 10
 sudo systemctl status mariadb
 
 ## configure git to cache credentials
-git config credential.helper cache
+git config --global credential.helper cache
 
 #############################################################################
 ##
