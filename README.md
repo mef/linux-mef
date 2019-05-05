@@ -131,6 +131,19 @@ Add or modify the following inside `~/.config/openbox/rc.xml`:
     </keybind>
 ````
 
+### adapt permissions for brightness controls
+
+By default, only root has permissions over brightness control. The following udev rules changes brightness group to `video`, and makes it writable by the group.
+
+Create a new file `/etc/udev/rules.d/backlight.rules` filled-up with the following contents:
+
+```
+ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="intel_backlight", RUN+="/bin/chgrp video /sys/class/backlight/%k/brightness"
+ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="intel_backlight", RUN+="/bin/chmod g+w /sys/class/backlight/%k/brightness"
+```
+
+[more info](https://superuser.com/questions/484678/cant-write-to-file-sys-class-backlight-acpi-video0-brightness-ubuntu).
+
 #### adjust battery charge thresholds in `/etc/default/tlp`
 
 #### locale setup
