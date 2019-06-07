@@ -15,6 +15,7 @@ Work in progress.
 
 * check ssh accesses, be sure not to end up locked out of some server.
 * Run backup scripts
+* save a copy of custom hosts `/etc/hosts`
 * Partition disks
 
 | mount point | partition | size |
