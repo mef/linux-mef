@@ -16,6 +16,7 @@ Work in progress.
 * check ssh accesses, be sure not to end up locked out of some server.
 * Run backup scripts
 * save a copy of custom hosts `/etc/hosts`
+* save a copy of specific configs, e.g. `nginx` config files
 * Partition disks
 
 | mount point | partition | size |
