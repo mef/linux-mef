@@ -32,7 +32,7 @@ Work in progress.
 * location: Belgium
 * locale: Ireland
 
-/dev/sda3 should be set as noatime and have journaling disabled
+/dev/sda3 should be set as noatime and have journaling disabled (c.f. https://foxutech.com/how-to-disable-enable-journaling/)
 
 
 ### Post-install
