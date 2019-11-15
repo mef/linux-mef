@@ -61,7 +61,7 @@ $ mkdir -p ~/development/other
 $ cd ~/development/other
 $ git clone https://github.com/mef/linux-mef.git
 $ cd linux-mef
-$ ./bunsenLabs-helium-setup.sh
+$ ./bunsenLabs-lithium-setup.sh
 ````
 
 #### enable autologin
@@ -146,7 +146,7 @@ ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="intel_backlight", RUN+="/bin/chm
 
 [more info](https://superuser.com/questions/484678/cant-write-to-file-sys-class-backlight-acpi-video0-brightness-ubuntu).
 
-#### adjust battery charge thresholds in `/etc/default/tlp`
+#### adjust battery charge thresholds in `/etc/default/tlp`, and disable bluetooth on startup
 
 #### locale setup
 
@@ -157,7 +157,7 @@ Fix the locale so that Monday is the first day of the week. [Method #2](http://b
 * edit the active origin pattern inside `/etc/apt/apt.conf.d/50unattended-upgrades`, e.g. set the following one:
 
 ````
-      "o=Debian,n=stretch";
+      "origin=Debian,codename=${distro_codename},label=Debian-Security";
 ````
 
 [source](https://wiki.debian.org/UnattendedUpgrades).
