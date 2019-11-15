@@ -10,15 +10,15 @@ set -euo pipefail
 echo disable touchpad
 
 ## disable touchpad at startup + create enable script
-echo '' >> ~/.config/openbox/autostart
-echo '## disable touchpad' >> ~/.config/openbox/autostart
-echo "xinput disable" $(xinput list | grep TouchPad | awk '{print $6}' | cut -c4,5) >> ~/.config/openbox/autostart
-echo "xinput enable" $(xinput list | grep TouchPad | awk '{print $6}' | cut -c4,5) > ~/bin/enable-touchpad.sh
+#echo '' >> ~/.config/openbox/autostart
+#echo '## disable touchpad' >> ~/.config/openbox/autostart
+#echo "xinput disable" $(xinput list | grep TouchPad | awk '{print $6}' | cut -c4,5) >> ~/.config/openbox/autostart
+#echo "xinput enable" $(xinput list | grep TouchPad | awk '{print $6}' | cut -c4,5) > ~/bin/enable-touchpad.sh
 
 ## disable in current session
-xinput disable $(xinput list | grep TouchPad | awk '{print $6}' | cut -c4,5)
+#xinput disable $(xinput list | grep TouchPad | awk '{print $6}' | cut -c4,5)
 
-chmod +x ~/bin/enable-touchpad.sh
+##chmod +x ~/bin/enable-touchpad.sh
 
 
 ## Configure keyboard layout
@@ -27,7 +27,7 @@ read -p "Follow steps to configure the keyboard Y/y" dummy
 sudo dpkg-reconfigure keyboard-configuration
 
 ## tweak graphics
-sudo apt purge xserver-xorg-video-intel
+#sudo apt purge xserver-xorg-video-intel
 
 ## activate redshift at boot
 echo '' >> ~/.config/openbox/autostart
@@ -80,7 +80,7 @@ echo fonts
 sudo apt install fonts-liberation2
 
 ## Set a nicer default monospace font
-sed -i 's/Inconsolata/Dejavu Sans Mono/g' ~/.config/fontconfig/fonts.conf
+sed -i 's/Noto Mono/Dejavu Sans Mono/g' ~/.config/fontconfig/fonts.conf
 
 ## remove heavy unused font
 sudo apt remove fonts-noto-cjk
@@ -114,7 +114,7 @@ sudo chown c-user:c-user /opt/c-user
 #sudo apt install xbacklight
 
 ## graphics software
-sudo apt install inkscape gimp gcolor2 cheese
+sudo apt install inkscape gimp cheese
 
 ## audio software
 sudo apt install audacity
@@ -123,7 +123,7 @@ sudo apt install audacity
 sudo apt install chromium
 
 ## office
-sudo apt install libreoffice-calc libreoffice-impress
+sudo apt install gnumeric libreoffice-impress
 
 ## image optimization
 sudo apt install optipng libjpeg-turbo-progs
@@ -167,12 +167,11 @@ echo dev software
 ## dependencies
 sudo apt install g++
 
-## redis 4.x
-sudo apt install -t stretch-backports redis
-
+## redis 5.x
+sudo apt install redis
 
 ## java
-sudo apt install openjdk-11-jdk openjdk-11-jre
+sudo apt install openjdk-11-jdk
 
 ## gephi
 cd /opt/c-user/
