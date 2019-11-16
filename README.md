@@ -11,28 +11,55 @@ Work in progress.
 
 ## Bunsenlabs linux config
 
+Version Lithium experimental (pre-release - based on Debian Buster 10)
+
 ### Pre-install
 
 * check ssh accesses, be sure not to end up locked out of some server.
 * Run backup scripts
 * save a copy of custom hosts `/etc/hosts`
 * save a copy of specific configs, e.g. `nginx` config files
+
+### Installation
+
+Target hardware: Thinkpad x1 carbon Gen7
+
+#### Debian Netinstall
+
+* Download latest debian buster NETINST ISO. If intel `iwlwifi` non-free firmware is needed, get the unofficial ISO which includes the non-free firmware ([here](https://cdimage.debian.org/cdimage/unofficial/non-free/cd-including-firmware/current/amd64/iso-cd/)).
+
 * Partition disks
 
 | mount point | partition | size |
 | -- | -- | -- |
-| / | /dev/sda1 | 20GB |
-| /home | /dev/sda2 | 210GB |
-| /var/log | /dev/sda3 | 256MB |
-| swap | /dev/sda4 | 4GB |
-
-## Install
+| / | /dev/sda1 | 20 GB |
+| /home | /dev/sda2 | 450 GB |
+| /var/log | /dev/sda3 | 256 MB |
+| swap | /dev/sda4 | 9 GB |
 
 * language: English
 * location: Belgium
 * locale: Ireland
 
 /dev/sda3 should be set as noatime and have journaling disabled (c.f. https://foxutech.com/how-to-disable-enable-journaling/)
+
+
+#### In case network is down after first boot:
+
+
+1. setup `/etc/network/interfaces` as described [here](https://www.raspberrypi.org/forums/viewtopic.php?t=7592).
+2. run `sudo ifdown wlp0s20f3 && sudo ifup wlp0s20f3` (replace by proper interface name)
+
+Useful commands (as root):
+
+* `ip a`
+* `iwconfig`
+* `iwlist scan`
+* `ip link set wlp0s20f3 up`
+
+#### Bunsen Lithium
+
+Follow [instructions](https://forums.bunsenlabs.org/viewtopic.php?id=5546).
 
 
 ### Post-install
@@ -47,6 +74,7 @@ Decline when prompted to install cvs or java.
 $ sudo apt install git
 $ git config --global user.name "John Doe"
 $ git config --global user.email johndoe@example.com
+$ git config --global credential.helper cache
 ````
 
 ##### run automated installations
