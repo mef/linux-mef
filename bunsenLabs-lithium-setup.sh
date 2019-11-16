@@ -10,15 +10,15 @@ set -euo pipefail
 echo disable touchpad
 
 ## disable touchpad at startup + create enable script
-#echo '' >> ~/.config/openbox/autostart
-#echo '## disable touchpad' >> ~/.config/openbox/autostart
-#echo "xinput disable" $(xinput list | grep TouchPad | awk '{print $6}' | cut -c4,5) >> ~/.config/openbox/autostart
-#echo "xinput enable" $(xinput list | grep TouchPad | awk '{print $6}' | cut -c4,5) > ~/bin/enable-touchpad.sh
+echo '' >> ~/.config/bunsen/autostart
+echo '## disable touchpad' >> ~/.config/bunsen/autostart
+echo "xinput disable" $(xinput list | grep Touchpad | awk '{print $6}' | cut -c4,5) " &" >> ~/.config/bunsen/autostart
+echo "xinput enable" $(xinput list | grep Touchpad | awk '{print $6}' | cut -c4,5) > ~/bin/enable-touchpad
+
+chmod +x ~/bin/enable-touchpad
 
 ## disable in current session
-#xinput disable $(xinput list | grep TouchPad | awk '{print $6}' | cut -c4,5)
-
-##chmod +x ~/bin/enable-touchpad.sh
+xinput disable $(xinput list | grep Touchpad | awk '{print $6}' | cut -c4,5)
 
 
 ## Configure keyboard layout
@@ -30,8 +30,8 @@ sudo dpkg-reconfigure keyboard-configuration
 #sudo apt purge xserver-xorg-video-intel
 
 ## activate redshift at boot
-echo '' >> ~/.config/openbox/autostart
-echo '(sleep 3; redshift-be) &' >> ~/.config/openbox/autostart
+echo '' >> ~/.config/bunsen/autostart
+echo '(sleep 3; redshift-be) &' >> ~/.config/bunsen/autostart
 
 ## set urxvt as default terminal
 # sudo update-alternatives --set x-terminal-emulator /usr/bin/urxvt
