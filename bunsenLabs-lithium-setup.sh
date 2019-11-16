@@ -20,7 +20,6 @@ chmod +x ~/bin/enable-touchpad
 ## disable in current session
 xinput disable $(xinput list | grep Touchpad | awk '{print $6}' | cut -c4,5)
 
-
 ## Configure keyboard layout
 read -p "Follow steps to configure the keyboard Y/y" dummy
 
