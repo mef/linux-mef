@@ -6,8 +6,6 @@ I wrote it for myself, but have no reason to keep it private.
 
 Use at your own risks.
 
-Work in progress.
-
 
 ## Bunsenlabs linux config
 
@@ -27,8 +25,13 @@ Target hardware: Thinkpad x1 carbon Gen7
 #### Debian Netinstall
 
 * Download latest debian buster NETINST ISO. If intel `iwlwifi` non-free firmware is needed, get the unofficial ISO which includes the non-free firmware ([here](https://cdimage.debian.org/cdimage/unofficial/non-free/cd-including-firmware/current/amd64/iso-cd/)).
+* Disable EFI secure boot (otherwise acpi_call kernel module won't load / tlp battery management not possible)
 
-* Partition disks
+* language: English
+* location: Belgium
+* locale: Ireland
+
+#### Disk partitioning layout
 
 | mount point | partition | size |
 | -- | -- | -- |
@@ -37,12 +40,7 @@ Target hardware: Thinkpad x1 carbon Gen7
 | /var/log | /dev/sda3 | 256 MB |
 | swap | /dev/sda4 | 9 GB |
 
-* language: English
-* location: Belgium
-* locale: Ireland
-
 /dev/sda3 should be set as noatime and have journaling disabled (c.f. https://foxutech.com/how-to-disable-enable-journaling/)
-
 
 #### In case network is down after first boot:
 
@@ -68,6 +66,13 @@ Once bunsen is installed, and bl-welcome gets executed.
 
 Decline when prompted to install cvs or java.
 
+#### set trackpoint sensitivity
+
+* Identify the trackpoint's Id using `xinput list` (10 in the examples below)
+* Lookup current sensitivity value, e.g. `xinput list-props 10`
+* Experiment values to find suitable sensitiviy, e.g.  `xinput --set-prop 10 "libinput Accel Speed" -.15`
+* Add command with desired sensitivity to `~/.config/bunsen/autostart`
+
 ##### setup and configure git
 
 ````bash
@@ -89,7 +94,7 @@ $ mkdir -p ~/development/other
 $ cd ~/development/other
 $ git clone https://github.com/mef/linux-mef.git
 $ cd linux-mef
-$ ./bunsenLabs-helium-setup.sh
+$ ./bunsenLabs-lithium-setup.sh
 ````
 
 #### enable autologin
@@ -110,7 +115,7 @@ Then add the user to the group autologin:
 
 [source](https://wiki.archlinux.org/index.php/LightDM#Enabling_autologin)
 
-#### custom shortcuts
+#### custom keyboard shortcuts
 
 Add or modify the following inside `~/.config/openbox/rc.xml`:
 
@@ -161,7 +166,11 @@ Add or modify the following inside `~/.config/openbox/rc.xml`:
     </keybind>
 ````
 
-### adapt permissions for brightness controls
+#### Shortcuts in thunar
+
+Manually define shortcuts in thunar
+
+#### adapt permissions for brightness controls
 
 By default, only root has permissions over brightness control. The following udev rules changes brightness group to `video`, and makes it writable by the group.
 
@@ -174,7 +183,7 @@ ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="intel_backlight", RUN+="/bin/chm
 
 [more info](https://superuser.com/questions/484678/cant-write-to-file-sys-class-backlight-acpi-video0-brightness-ubuntu).
 
-#### adjust battery charge thresholds in `/etc/default/tlp`
+#### adjust battery charge thresholds in `/etc/default/tlp`, and disable bluetooth on startup
 
 #### locale setup
 
@@ -185,7 +194,7 @@ Fix the locale so that Monday is the first day of the week. [Method #2](http://b
 * edit the active origin pattern inside `/etc/apt/apt.conf.d/50unattended-upgrades`, e.g. set the following one:
 
 ````
-      "o=Debian,n=stretch";
+      "origin=Debian,codename=${distro_codename},label=Debian-Security";
 ````
 
 [source](https://wiki.debian.org/UnattendedUpgrades).
@@ -198,8 +207,8 @@ Default region: eu-west-1
 Default output format: json
 
 Retrieve data sync scripts from s3, put them in bin directory
-
 #### Geany
+
 
 * select theme monokai-mef them in geany "View\Change color scheme" menu
 * activate line wrap in geany `Preferences/editor`
@@ -225,21 +234,24 @@ Download firefox developer edition from https://www.mozilla.org/en-US/firefox/ch
 
 Unpack both tarballs inside /opt/c-user/firefox and firefox-dev, respectively
 
-    sudo apt remove firefox-esr firefox
-    sudo ln -s /opt/c-user/firefox/firefox /usr/bin/firefox
-    sudo ln -s /opt/c-user/firefox-dev/firefox /usr/bin/firefox-dev
-    sudo update-alternatives --install /usr/bin/x-www-browser x-www-browser /opt/c-user/firefox/firefox 200
-    sudo update-alternatives --install /usr/bin/x-www-browser x-www-browser /opt/c-user/firefox-dev/firefox 100
+```
+sudo apt remove firefox-esr firefox
+sudo ln -s /opt/c-user/firefox/firefox /usr/bin/firefox
+sudo ln -s /opt/c-user/firefox-dev/firefox /usr/bin/firefox-dev
+sudo update-alternatives --install /usr/bin/x-www-browser x-www-browser /opt/c-user/firefox/firefox 200
+sudo update-alternatives --install /usr/bin/x-www-browser x-www-browser /opt/c-user/firefox-dev/firefox 100
+```
 
 #### web browsers config
 
 1. install ublock origin in firefox and firefox developer edition (also in the VM) https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/?src=search
 2. install ublock origin in chromium
 3. retrieve userChrome.css and userContent.css from backup, and copy into firefox profile directories.
+4. activate userChrome and userContent.css by setting `toolkit.legacyUserProfileCustomizations.stylesheets` to `true` in about:config.
 
 #### anti-theft system
 
-1. install prey `.deb` package from https://panel.preyproject.com
+1. install prey `.deb` package from https://preyproject.com/download/
 2. configure prey, it may be necessary to launch the gui manually: `sudo /usr/lib/prey/current/bin/prey config gui`
   * during config, solve bug by applying [this workaround](https://github.com/prey/prey-node-client/issues/355#issuecomment-368228502). - if still relevant
 3. enable prey service `sudo -u prey /usr/lib/prey/current/bin/prey config activate`
@@ -258,6 +270,7 @@ Then `nvm install --lts`
 echo 'QT_AUTO_SCREEN_SCALE_FACTOR=0' | sudo tee -a /etc/environment
 ```
 
+(effective after reboot)
 
 #### gimp config
 
@@ -274,7 +287,7 @@ e.g.
 #### databases
 
 ```
-## mariadb: let data and tmp directories inside /home partition
+## mariadb: with data and tmp directories inside /home partition
 sudo apt install mariadb-server mariadb-client
 
 sudo mysql_secure_installation
@@ -293,6 +306,8 @@ sudo sed -i 's#/tmp#/home/mysqlTmp#g' /etc/mysql/mariadb.conf.d/50-server.cnf
 ## allow mysql to access home directory in  daemon
 sudo sed -i 's/ProtectHome=true/ProtectHome=false/' /etc/systemd/system/mysql.service
 sudo sed -i 's/ProtectHome=true/ProtectHome=false/' /lib/systemd/system/mariadb.service
+
+sudo systemctl daemon-reload
 
 sudo systemctl start mariadb
 sleep 10
