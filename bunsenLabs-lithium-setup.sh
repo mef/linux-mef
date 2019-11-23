@@ -148,12 +148,18 @@ sudo apt install awscli baobab pdftk
 ## skype - do I really need it? via this method https://linuxconfig.org/how-to-install-skype-on-debian-9-stretch-linux#comment-3752388010 ?
 
 ## virtual machine
-# sudo apt install qemu-kvm libvirt-clients virt-manager
-# sudo adduser c-user kvm
-# sudo rmmod kvm_intel
-# sudo rmmod kvm
-# sudo modprobe kvm
-# sudo modprobe kvm_intel
+
+## install kvm / qemu
+sudo apt install --no-install-recommends qemu-kvm qemu-utils libvirt-daemon bridge-utils libvirt-daemon-system virt-manager dnsmasq virt-viewer libvirt-daemon-system gir1.2-spiceclientglib-2.0 dmidecode libxml2-utils
+
+## prevent sudo password prompt during startup of virt-manager
+sudo usermod -a -G libvirt $(whoami)
+
+## set default location of VMs under /home
+sudo mkdir /home/kvm-vms
+sudo rmdir /var/lib/libvirt/images/
+sudo ln -s /home/kvm-vms/ /var/lib/libvirt/images
+
 
 #############################################################################
 ##
