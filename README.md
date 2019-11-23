@@ -6,10 +6,11 @@ I wrote it for myself, but have no reason to keep it private.
 
 Use at your own risks.
 
+## How to install BunsenLabs Lithium on a thinkpad laptop
 
-## Bunsenlabs linux config
+The instructions below are relative to the installation of BusenLabs Lithium experimental (pre-release - based on Debian Buster 10) on a Thinkpad X1 Carbon Gen 7.
 
-Version Lithium experimental (pre-release - based on Debian Buster 10)
+For a setup and configuration of BunsenLabs Helium (based on Debian Stretch), have a look at version tag `v0.2.0`.
 
 ### Pre-install
 
@@ -215,8 +216,8 @@ Default region: eu-west-1
 Default output format: json
 
 Retrieve data sync scripts from s3, put them in bin directory
-#### Geany
 
+#### Geany
 
 * select theme monokai-mef them in geany "View\Change color scheme" menu
 * activate line wrap in geany `Preferences/editor`
@@ -233,7 +234,6 @@ ssh-keygen -o -a 100 -t ed25519
 * create and complete `.ssh/config`
 * add public key to relevant servers 
 * test all accesses
-
 
 #### firefox setup
 
@@ -351,15 +351,6 @@ Lookup windows key with:
     sudo cat /sys/firmware/acpi/tables/MSDM
 
 If necessary, adapt VM name inside `~/bin/windows`.
-
-to work around kvm permission denied error, reload of kvm kernel modules was necessary:
-
-````bash
-sudo rmmod kvm_intel
-sudo rmmod kvm
-sudo modprobe kvm
-sudo modprobe kvm_intel
-````
 
 #### wip
 
