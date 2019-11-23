@@ -127,7 +127,6 @@ sudo apt install gnumeric libreoffice-impress
 ## image optimization
 sudo apt install optipng libjpeg-turbo-progs
 
-
 ## For some reason, programmatic download retrieves windows .zip instead of the linux 64 bits version.
 #cd /opt/c-user
 #wget -O firefox.tar.bz2 https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US && tar -zxvf firefox.tar.bz2
@@ -144,8 +143,6 @@ sudo apt install redshift
 
 ## utilities
 sudo apt install awscli baobab pdftk
-
-## skype - do I really need it? via this method https://linuxconfig.org/how-to-install-skype-on-debian-9-stretch-linux#comment-3752388010 ?
 
 ## virtual machine
 
