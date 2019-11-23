@@ -73,7 +73,15 @@ Decline when prompted to install cvs or java.
 * Experiment values to find suitable sensitiviy, e.g.  `xinput --set-prop 10 "libinput Accel Speed" -.15`
 * Add command with desired sensitivity to `~/.config/bunsen/autostart`
 
-##### setup and configure git
+#### decrease swappiness
+
+Add the following line to `/etc/sysctl.conf`:
+
+    vm.swappiness = 10
+
+[source](https://askubuntu.com/a/103916).
+
+#### setup and configure git
 
 ````bash
 $ sudo apt install git
@@ -82,7 +90,7 @@ $ git config --global user.email johndoe@example.com
 $ git config --global credential.helper cache
 ````
 
-##### run automated installations
+#### run automated installations
 
 (!) Make sure that you know what you're doing. study the script before executing it, or run selected steps manually to be safe.
 
