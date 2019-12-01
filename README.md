@@ -322,6 +322,10 @@ sleep 10
 sudo systemctl status mariadb
 ```
 
+Connect via sudo to use as `root` user.
+
+If  needed to have a user with permissions similar to root, usable from `localhost`, follow [these steps](https://www.digitalocean.com/community/tutorials/how-to-install-mariadb-on-debian-10).
+
 If relevant, restore dumps from backup.
 
 For mariadb, in case the source OS is not usable for the creation of backups, physical backups can be used ([instructions](https://www.linode.com/docs/databases/mysql/create-physical-backups-of-your-mariadb-or-mysql-databases/)).
