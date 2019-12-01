@@ -256,6 +256,7 @@ sudo update-alternatives --install /usr/bin/x-www-browser x-www-browser /opt/c-u
 2. install ublock origin in chromium
 3. retrieve userChrome.css and userContent.css from backup, and copy into firefox profile directories.
 4. activate userChrome and userContent.css by setting `toolkit.legacyUserProfileCustomizations.stylesheets` to `true` in about:config.
+5. download client certificate an import in firefox 
 
 #### anti-theft system
 
