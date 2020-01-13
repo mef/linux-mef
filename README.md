@@ -124,6 +124,24 @@ Then add the user to the group autologin:
 
 [source](https://wiki.archlinux.org/index.php/LightDM#Enabling_autologin)
 
+#### Fix black lock screen
+
+A bug in light-locker causes a black screen to be presented rather than the login prompt.
+
+This is worked around by installing another greeter app.
+
+```
+sudo apt install slick-greeter
+
+cd /etc/lightdm/
+sudo mkdir -p lightdm.conf.d
+cd lightdm.conf.d/
+sudo cp -p /usr/share/lightdm/lightdm.conf.d/50-slick-greeter.conf .
+```
+
+
+Then, edit `~/.xbindkeysrc` in order to replace light-locker by `dm-tool lock` for the lock keyboard shortcut.
+
 #### custom keyboard shortcuts
 
 Add or modify the following inside `~/.config/openbox/rc.xml`:
