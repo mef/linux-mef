@@ -73,7 +73,9 @@ Decline when prompted to install cvs or java.
 * Experiment values to find suitable sensitiviy, e.g. `-.35` here:  `xinput --set-prop $(xinput list | grep TrackPoint | awk '{print $6}' | cut -c4,5) "libinput Accel Speed" -.35`
 * Add command with desired sensitivity to `~/.config/bunsen/autostart`, e.g.
 
-    xinput --set-prop $(xinput list | grep TrackPoint | awk '{print $6}' | cut -c4,5) "libinput Accel Speed" -.35 &
+````bash
+xinput --set-prop $(xinput list | grep TrackPoint | awk '{print $6}' | cut -c4,5) "libinput Accel Speed" -.35 &
+````
 
 #### decrease swappiness
 
