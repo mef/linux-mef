@@ -69,10 +69,11 @@ Decline when prompted to install cvs or java.
 
 #### set trackpoint sensitivity
 
-* Identify the trackpoint's Id using `xinput list` (10 in the examples below)
-* Lookup current sensitivity value, e.g. `xinput list-props 10`
-* Experiment values to find suitable sensitiviy, e.g.  `xinput --set-prop 10 "libinput Accel Speed" -.15`
-* Add command with desired sensitivity to `~/.config/bunsen/autostart`
+* Lookup current sensitivity value (libinput Accel Speed), using this command: `xinput --list-props $(xinput list | grep TrackPoint | awk '{print $6}' | cut -c4,5)`
+* Experiment values to find suitable sensitiviy, e.g. `-.35` here:  `xinput --set-prop $(xinput list | grep TrackPoint | awk '{print $6}' | cut -c4,5) "libinput Accel Speed" -.35`
+* Add command with desired sensitivity to `~/.config/bunsen/autostart`, e.g.
+
+    xinput --set-prop $(xinput list | grep TrackPoint | awk '{print $6}' | cut -c4,5) "libinput Accel Speed" -.35 &
 
 #### decrease swappiness
 
