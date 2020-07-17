@@ -368,6 +368,23 @@ Once node.js is installed, run the following
 npm install http-server -g
 ````
 
+#### pip
+
+For python 3:
+
+    sudo apt install --no-install-recommends python3-pip
+    
+    
+Then add the path to python packages to bashrc file:
+
+    export PATH=/home/c-user/.local/bin:$PATH
+
+Then use command `pip3`.
+    
+For python 2:
+
+    sudo apt install --no-install-recommends python-pip
+
 #### virtual machine setup (wip)
 
 create the VM using virt-manager.
