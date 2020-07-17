@@ -1,17 +1,17 @@
-#!/bin/sh
+#!/bin/bash
+set -euo pipefail
 
-# activate trackpoint scroll for external lenovo usb keyboard
-# 
-# @param {number?} keyboard id - defaults to 15. Find value with `xinput list`
+########################################################################
 #
 #
-# usage
-#     external-keyboard-hack.sh 14
+# Decrease trackpoint sensitivity for all connected keyboards
 #
+# @param {number?} sensitivity - defaults to -.35. Find current value with `xinput list-props [keyboardId]`
+#
+########################################################################
 
-KEYBOARDID=${1:-15}
+SENSITIVITY=${1:--.35}
 
-xinput set-int-prop $KEYBOARDID "Evdev Wheel Emulation Button" 8 2
-xinput set-int-prop $KEYBOARDID "Evdev Wheel Emulation" 8 1
-xinput set-int-prop $KEYBOARDID "Evdev Wheel Emulation Timeout" 8 200
-xinput set-int-prop $KEYBOARDID "Evdev Wheel Emulation Axes" 8 6 7 4 5
+for KEYBOARDID in $(xinput list | grep TrackPoint.*pointer | sed -n -e 's/^.*id=\([0-9]*\).*$/\1/p'); do
+    xinput --set-prop $KEYBOARDID "libinput Accel Speed" $SENSITIVITY
+done
