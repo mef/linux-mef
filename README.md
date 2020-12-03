@@ -335,7 +335,9 @@ sudo sed -i 's#/tmp#/home/mysqlTmp#g' /etc/mysql/mariadb.conf.d/50-server.cnf
 
 ## allow mysql to access home directory in  daemon
 sudo sed -i 's/ProtectHome=true/ProtectHome=false/' /etc/systemd/system/mysql.service
-sudo sed -i 's/ProtectHome=true/ProtectHome=false/' /lib/systemd/system/mariadb.service
+### avoid config being overwritten after software updates
+sudo cp /lib/systemd/system/mariadb.service /etc/systemd/system/
+sudo sed -i 's/ProtectHome=true/ProtectHome=false/' /etc/systemd/system/mariadb.service
 
 sudo systemctl daemon-reload
 
