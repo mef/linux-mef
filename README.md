@@ -402,3 +402,19 @@ If necessary, adapt VM name inside `~/bin/windows`.
 * audacious or quodLibet as replacement of decibel-audio-player?
 * raleway and roboto fonts
 * ublock origin custom filters / rules
+
+
+### BIOS upgrade
+
+Dependencies: `genisoimage` package.
+
+    sudo apt install genisoimage
+    
+    
+1. Download the BIOS update utility as bootable CD iso file from lenovo website
+2. convert the downloaded iso file to img file - (c.f. example command below)
+3. use `dd` to copy the img file into a USB disk
+4. Boot the laptop from USB and follow displayed instructions
+
+    geteltorito -o x250.img downladed-iso-file-name.iso
+
