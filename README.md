@@ -91,7 +91,6 @@ Add the following line to `/etc/sysctl.conf`:
 $ sudo apt install git
 $ git config --global user.name "John Doe"
 $ git config --global user.email johndoe@example.com
-$ git config --global credential.helper cache
 ````
 
 #### run automated installations
@@ -106,7 +105,7 @@ $ mkdir -p ~/development/other
 $ cd ~/development/other
 $ git clone https://github.com/mef/linux-mef.git
 $ cd linux-mef
-$ ./bunsenLabs-lithium-setup.sh
+$ ./bunsenLabs-beryllium-setup.sh
 ````
 
 #### enable autologin
@@ -127,23 +126,6 @@ Then add the user to the group autologin:
 
 [source](https://wiki.archlinux.org/index.php/LightDM#Enabling_autologin)
 
-#### Fix black lock screen
-
-A bug in light-locker causes a black screen to be presented rather than the login prompt.
-
-This is worked around by installing another greeter app.
-
-```
-sudo apt install slick-greeter
-
-cd /etc/lightdm/
-sudo mkdir -p lightdm.conf.d
-cd lightdm.conf.d/
-sudo cp -p /usr/share/lightdm/lightdm.conf.d/50-slick-greeter.conf .
-```
-
-
-Then, edit `~/.xbindkeysrc` in order to replace light-locker by `dm-tool lock` for the lock keyboard shortcut.
 
 #### custom keyboard shortcuts
 
@@ -213,18 +195,28 @@ ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="intel_backlight", RUN+="/bin/chm
 
 [more info](https://superuser.com/questions/484678/cant-write-to-file-sys-class-backlight-acpi-video0-brightness-ubuntu).
 
-#### adjust battery charge thresholds in `/etc/default/tlp`, and disable bluetooth on startup
+#### Configure tlp
 
-#### locale setup
 
-Fix the locale so that Monday is the first day of the week. [Method #2](http://bitthinker.com/blog/en/troubles/how-to-change-first-week-day-in-xfce) here works for tint2's calendar.
+`/etc/tlp.conf`
+
+
+```
+DEVICES_TO_DISABLE_ON_STARTUP="bluetooth wwan"
+
+
+START_CHARGE_THRESH_BAT0=65
+STOP_CHARGE_THRESH_BAT0=80
+
+```
 
 #### configure unattended-upgrades
 
-* edit the active origin pattern inside `/etc/apt/apt.conf.d/50unattended-upgrades`, e.g. set the following one:
+* edit the active origin patterns inside `/etc/apt/apt.conf.d/50unattended-upgrades`, e.g. set the following ones:
 
 ````
-      "origin=Debian,codename=${distro_codename},label=Debian-Security";
+    "origin=Debian,codename=${distro_codename},label=Debian-Security";
+    "origin=Debian,codename=${distro_codename}-security,label=Debian-Security";
 ````
 
 [source](https://wiki.debian.org/UnattendedUpgrades).
@@ -273,11 +265,9 @@ sudo update-alternatives --install /usr/bin/x-www-browser x-www-browser /opt/c-u
 
 #### web browsers config
 
-1. install ublock origin in firefox and firefox developer edition (also in the VM) https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/?src=search
+1. restore firefox profiles from backup, and set them up inside `~/.mozilla/firefox/profiles.ini`.
 2. install ublock origin in chromium
-3. retrieve userChrome.css and userContent.css from backup, and copy into firefox profile directories.
-4. activate userChrome and userContent.css by setting `toolkit.legacyUserProfileCustomizations.stylesheets` to `true` in about:config.
-5. download client certificate an import in firefox 
+3. download client certificate(s) and import in firefox 
 
 #### anti-theft system
 
@@ -292,19 +282,6 @@ sudo update-alternatives --install /usr/bin/x-www-browser x-www-browser /opt/c-u
 cf. [install using git](https://github.com/nvm-sh/nvm#manual-install).
 
 Then `nvm install --lts`
-
-#### vlc media player
-
-```
-## fix QT scaling for Hi-DPI screens for VLC media player
-echo 'QT_AUTO_SCREEN_SCALE_FACTOR=0' | sudo tee -a /etc/environment
-```
-
-(effective after reboot)
-
-#### gimp config
-
-toggle `Windows\Single-window mode`
 
 #### gephi config
 

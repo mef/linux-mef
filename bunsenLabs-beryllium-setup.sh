@@ -12,13 +12,13 @@ echo disable touchpad
 ## disable touchpad at startup + create enable script
 echo '' >> ~/.config/bunsen/autostart
 echo '## disable touchpad' >> ~/.config/bunsen/autostart
-echo "xinput disable" $(xinput list | grep Touchpad | awk '{print $6}' | cut -c4,5) " &" >> ~/.config/bunsen/autostart
-echo "xinput enable" $(xinput list | grep Touchpad | awk '{print $6}' | cut -c4,5) > ~/bin/enable-touchpad
+echo "xinput disable \$(xinput list | grep Synaptics | awk '{print \$5}' | cut -c4,5) &" >> ~/.config/bunsen/autostart
+echo "xinput enable \$(xinput list | grep Synaptics | awk '{print \$5}' | cut -c4,5)" > ~/bin/enable-touchpad
 
 chmod +x ~/bin/enable-touchpad
 
 ## disable in current session
-xinput disable $(xinput list | grep Touchpad | awk '{print $6}' | cut -c4,5)
+xinput disable $(xinput list | grep Synaptics | awk '{print $5}' | cut -c4,5)
 
 ## Configure keyboard layout
 read -p "Follow steps to configure the keyboard Y/y" dummy
@@ -109,6 +109,11 @@ echo extra software
 sudo mkdir /opt/c-user
 sudo chown c-user:c-user /opt/c-user
 
+
+## install terminator and as default terminal
+sudo apt install terminator
+sudo update-alternatives --set x-terminal-emulator /usr/bin/terminator
+
 ## xbacklight
 #sudo apt install xbacklight
 
@@ -142,20 +147,20 @@ sudo apt-get install unattended-upgrades apt-listchanges
 sudo apt install redshift
 
 ## utilities
-sudo apt install awscli baobab pdftk
+sudo apt install baobab pdftk
 
 ## virtual machine
 
 ## install kvm / qemu
-sudo apt install --no-install-recommends qemu-kvm qemu-utils libvirt-daemon bridge-utils libvirt-daemon-system virt-manager dnsmasq virt-viewer libvirt-daemon-system gir1.2-spiceclientglib-2.0 dmidecode libxml2-utils
+#sudo apt install --no-install-recommends qemu-kvm qemu-utils libvirt-daemon bridge-utils libvirt-daemon-system virt-manager dnsmasq virt-viewer libvirt-daemon-system gir1.2-spiceclientglib-2.0 dmidecode libxml2-utils
 
 ## prevent sudo password prompt during startup of virt-manager
-sudo usermod -a -G libvirt $(whoami)
+#sudo usermod -a -G libvirt $(whoami)
 
 ## set default location of VMs under /home
-sudo mkdir /home/kvm-vms
-sudo rmdir /var/lib/libvirt/images/
-sudo ln -s /home/kvm-vms/ /var/lib/libvirt/images
+#sudo mkdir /home/kvm-vms
+#sudo rmdir /var/lib/libvirt/images/
+#sudo ln -s /home/kvm-vms/ /var/lib/libvirt/images
 
 
 #############################################################################
@@ -170,20 +175,17 @@ echo dev software
 sudo apt install g++
 
 ## redis 5.x
-sudo apt install redis
+#sudo apt install redis
 
 ## java
-sudo apt install openjdk-11-jdk
+#sudo apt install openjdk-11-jdk
 
 ## gephi
-cd /opt/c-user/
-wget https://github.com/gephi/gephi/releases/download/v0.9.2/gephi-0.9.2-linux.tar.gz
-tar -zxvf gephi-0.9.2-linux.tar.gz
-ln -s /opt/c-user/gephi-0.9.2/bin/gephi ~/bin/
-cd
-
-## configure git to cache credentials
-git config --global credential.helper cache
+#cd /opt/c-user/
+#wget https://github.com/gephi/gephi/releases/download/v0.9.2/gephi-0.9.2-linux.tar.gz
+#tar -zxvf gephi-0.9.2-linux.tar.gz
+#ln -s /opt/c-user/gephi-0.9.2/bin/gephi ~/bin/
+#cd
 
 #############################################################################
 ##
