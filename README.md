@@ -127,6 +127,31 @@ Then add the user to the group autologin:
 
 [source](https://wiki.archlinux.org/index.php/LightDM#Enabling_autologin)
 
+#### Add terminator theme
+
+Add the following in the `profiles` section of `.config/terminator/config`:
+
+```
+  [[Monokai dark]]
+    background_color = "#272822"
+    background_darkness = 0.95
+    background_type = transparent
+    cursor_color = "#ffffff"
+    foreground_color = "#f8f8f2"
+    show_titlebar = False
+    scrollback_infinite = True
+    palette = "#75715e:#f92672:#a6e22e:#f4bf75:#66d9ef:#ae81ff:#2aa198:#f9f8f5:#272822:#f92672:#a6e22e:#f4bf75:#66d9ef:#ae81ff:#2aa198:#f9f8f5"
+  [[Monokai mef]]
+    background_color = "#272822"
+    background_darkness = 0.95
+    background_type = transparent
+    cursor_color = "#ffffff"
+    foreground_color = "#f8f8f2"
+    show_titlebar = False
+    scrollback_infinite = True
+    palette = "#75715e:#f92672:#a6e22e:#f4bf75:#66d9ef:#ae81ff:#2aa198:#f9f8f5:#838383:#f92672:#a6e22e:#f4bf75:#66d9ef:#ae81ff:#2aa198:#f9f8f5"
+```
+
 #### Fix black lock screen
 
 A bug in light-locker causes a black screen to be presented rather than the login prompt.
