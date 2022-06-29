@@ -128,6 +128,9 @@ Then add the user to the group autologin:
 
 #### Add terminator theme
 
+N.B.: No instance of terminator should be running when the following modifications are performed.
+
+
 Add the following in the `profiles` section of `.config/terminator/config`:
 
 ```
@@ -149,6 +152,17 @@ Add the following in the `profiles` section of `.config/terminator/config`:
     show_titlebar = False
     scrollback_infinite = True
     palette = "#75715e:#f92672:#a6e22e:#f4bf75:#66d9ef:#ae81ff:#2aa198:#f9f8f5:#838383:#f92672:#a6e22e:#f4bf75:#66d9ef:#ae81ff:#2aa198:#f9f8f5"
+```
+
+Then lower in the same file, define the default profile to use.
+
+```
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      type = Terminal
+      profile = Monokai mef
 ```
 
 #### custom keyboard shortcuts
