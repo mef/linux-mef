@@ -126,6 +126,30 @@ Then add the user to the group autologin:
 
 [source](https://wiki.archlinux.org/index.php/LightDM#Enabling_autologin)
 
+#### Add terminator theme
+
+Add the following in the `profiles` section of `.config/terminator/config`:
+
+```
+  [[Monokai dark]]
+    background_color = "#272822"
+    background_darkness = 0.95
+    background_type = transparent
+    cursor_color = "#ffffff"
+    foreground_color = "#f8f8f2"
+    show_titlebar = False
+    scrollback_infinite = True
+    palette = "#75715e:#f92672:#a6e22e:#f4bf75:#66d9ef:#ae81ff:#2aa198:#f9f8f5:#272822:#f92672:#a6e22e:#f4bf75:#66d9ef:#ae81ff:#2aa198:#f9f8f5"
+  [[Monokai mef]]
+    background_color = "#272822"
+    background_darkness = 0.95
+    background_type = transparent
+    cursor_color = "#ffffff"
+    foreground_color = "#f8f8f2"
+    show_titlebar = False
+    scrollback_infinite = True
+    palette = "#75715e:#f92672:#a6e22e:#f4bf75:#66d9ef:#ae81ff:#2aa198:#f9f8f5:#838383:#f92672:#a6e22e:#f4bf75:#66d9ef:#ae81ff:#2aa198:#f9f8f5"
+```
 
 #### custom keyboard shortcuts
 
@@ -312,7 +336,9 @@ sudo sed -i 's#/tmp#/home/mysqlTmp#g' /etc/mysql/mariadb.conf.d/50-server.cnf
 
 ## allow mysql to access home directory in  daemon
 sudo sed -i 's/ProtectHome=true/ProtectHome=false/' /etc/systemd/system/mysql.service
-sudo sed -i 's/ProtectHome=true/ProtectHome=false/' /lib/systemd/system/mariadb.service
+### avoid config being overwritten after software updates
+sudo cp /lib/systemd/system/mariadb.service /etc/systemd/system/
+sudo sed -i 's/ProtectHome=true/ProtectHome=false/' /etc/systemd/system/mariadb.service
 
 sudo systemctl daemon-reload
 
@@ -345,6 +371,23 @@ Once node.js is installed, run the following
 npm install http-server -g
 ````
 
+#### pip
+
+For python 3:
+
+    sudo apt install --no-install-recommends python3-pip
+    
+    
+Then add the path to python packages to bashrc file:
+
+    export PATH=/home/c-user/.local/bin:$PATH
+
+Then use command `pip3`.
+    
+For python 2:
+
+    sudo apt install --no-install-recommends python-pip
+
 #### virtual machine setup (wip)
 
 create the VM using virt-manager.
@@ -360,3 +403,19 @@ If necessary, adapt VM name inside `~/bin/windows`.
 * audacious or quodLibet as replacement of decibel-audio-player?
 * raleway and roboto fonts
 * ublock origin custom filters / rules
+
+
+### BIOS upgrade
+
+Dependencies: `genisoimage` package.
+
+    sudo apt install genisoimage
+    
+    
+1. Download the BIOS update utility as bootable CD iso file from lenovo website
+2. convert the downloaded iso file to img file - (c.f. example command below)
+3. use `dd` to copy the img file into a USB disk
+4. Boot the laptop from USB and follow displayed instructions
+
+    geteltorito -o x250.img downladed-iso-file-name.iso
+
