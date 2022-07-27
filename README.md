@@ -6,11 +6,14 @@ I wrote it for myself, but have no reason to keep it private.
 
 Use at your own risks.
 
-## How to install BunsenLabs Lithium on a thinkpad laptop
+## How to install BunsenLabs Beryllium on a thinkpad laptop
 
-The instructions below are relative to the installation of BusenLabs Lithium experimental (pre-release - based on Debian Buster 10) on a Thinkpad X1 Carbon Gen 7.
+The instructions below are relative to the installation of BusenLabs Beryllium experimental (pre-release - based on Debian Bullseye 11) on a Thinkpad X1 Carbon Gen 7.
 
-For a setup and configuration of BunsenLabs Helium (based on Debian Stretch), have a look at version tag `v0.2.0`.
+Previous versions:
+
+* BunsenLabs Lithium (based on Debian Buster), have a look at version tag `v0.3.0`.
+* BunsenLabs Helium (based on Debian Stretch), have a look at version tag `v0.2.0`.
 
 ### Pre-install
 
@@ -25,7 +28,7 @@ Target hardware: Thinkpad x1 carbon Gen7
 
 #### Debian Netinstall
 
-* Download latest debian buster NETINST ISO. If intel `iwlwifi` non-free firmware is needed, get the unofficial ISO which includes the non-free firmware ([here](https://cdimage.debian.org/cdimage/unofficial/non-free/cd-including-firmware/current/amd64/iso-cd/)).
+* Download latest debian stable NETINST ISO. If intel `iwlwifi` non-free firmware is needed, get the unofficial ISO which includes the non-free firmware ([here](https://cdimage.debian.org/cdimage/unofficial/non-free/cd-including-firmware/current/amd64/iso-cd/)).
 * Disable EFI secure boot (otherwise acpi_call kernel module won't load / tlp battery management not possible)
 
 * language: English
@@ -46,8 +49,20 @@ Target hardware: Thinkpad x1 carbon Gen7
 #### In case network is down after first boot:
 
 
-1. setup `/etc/network/interfaces` as described [here](https://www.raspberrypi.org/forums/viewtopic.php?t=7592).
-2. run `sudo ifdown wlp0s20f3 && sudo ifup wlp0s20f3` (replace by proper interface name)
+1. setup `/etc/network/interfaces`.
+
+Replace `wlan0` by your actual interface name
+
+```
+auto wlan0
+iface wlan0 inet dhcp
+wpa-ssid "<network name>"
+wpa-psk "<password>"
+```
+
+More config options [here](https://www.raspberrypi.org/forums/viewtopic.php?t=7592)
+
+2. run `sudo ifdown wlan0 && sudo ifup wlan0` (replace by proper interface name)
 
 Useful commands (as root):
 
@@ -56,9 +71,9 @@ Useful commands (as root):
 * `iwlist scan`
 * `ip link set wlp0s20f3 up`
 
-#### Bunsen Lithium
+#### Bunsen Beryllium
 
-Follow [instructions](https://forums.bunsenlabs.org/viewtopic.php?id=5546).
+Follow [instructions](https://forums.bunsenlabs.org/viewtopic.php?id=7356).
 
 
 ### Post-install
