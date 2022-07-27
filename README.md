@@ -321,6 +321,7 @@ sudo update-alternatives --install /usr/bin/x-www-browser x-www-browser /opt/c-u
 6. set proper scaling for HiDPI screen on Firefox 103+ ([source](https://www.reddit.com/r/firefox/comments/w8kjli/comment/ihs3ht2/?utm_source=reddit&utm_medium=web2x&context=3)):
   * _create_ a `ui.textScaleFactor` number config option, and set it to desired value (e.g. 120 for 120% scaling)
   * Ensure that `layout.css.devPixelsPerPx` is set to -1
+  * Close and re-open the firefox window(s) to avoid undesired sire-effect on already open tabs.
 
 #### anti-theft system
 
