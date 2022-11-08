@@ -392,7 +392,7 @@ For python 3:
     sudo apt install --no-install-recommends python3-pip
     
     
-Then add the path to python packages to bashrc file:
+Then add the path to python packages to .profile file:
 
     export PATH=/home/c-user/.local/bin:$PATH
 
