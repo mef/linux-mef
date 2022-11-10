@@ -91,7 +91,10 @@ Add the following line to `/etc/sysctl.conf`:
 $ sudo apt install git
 $ git config --global user.name "John Doe"
 $ git config --global user.email johndoe@example.com
+$ git config --global completion.commands -difftool
 ````
+
+The last command allows auto-complete to properly do `git diff<tab>` ([Source](https://stackoverflow.com/a/56757026)).
 
 #### run automated installations
 
