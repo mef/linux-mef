@@ -126,6 +126,15 @@ Then add the user to the group autologin:
 
 [source](https://wiki.archlinux.org/index.php/LightDM#Enabling_autologin)
 
+#### Prevent terminator from hijacking the <kbd>Ctrl</kbd>+<kbd>A</kbd> shortcut
+
+Edit `~/.config/terminator/config` and comment out the keybinding hide_window line:
+
+```
+[keybindings]
+#  hide_window = <Shift><Control>a
+```
+
 #### Add terminator theme
 
 N.B.: No instance of terminator should be running when the following modifications are performed.
@@ -309,7 +318,12 @@ sudo update-alternatives --install /usr/bin/x-www-browser x-www-browser /opt/c-u
 
 #### anti-theft system
 
-1. install prey `.deb` package from https://preyproject.com/download/
+1. install prey `.deb` package from https://preyproject.com/download/ - fixing missing dependencies as so ([source](https://github.com/prey/prey-node-client/issues/442))
+```
+sudo dpkg -i prey_1.9.1_amd64.deb
+sudo apt install --fix-missing
+sudo apt install --fix-broken
+```  
 2. configure prey, it may be necessary to launch the gui manually: `sudo /usr/lib/prey/current/bin/prey config gui`
   * during config, solve bug by applying [this workaround](https://github.com/prey/prey-node-client/issues/355#issuecomment-368228502). - if still relevant
 3. enable prey service `sudo -u prey /usr/lib/prey/current/bin/prey config activate`
@@ -319,7 +333,12 @@ sudo update-alternatives --install /usr/bin/x-www-browser x-www-browser /opt/c-u
 
 cf. [install using git](https://github.com/nvm-sh/nvm#manual-install).
 
-Then `nvm install --lts`
+Then
+
+```
+nvm install --lts
+nvm alias default node
+```
 
 #### gephi config
 
