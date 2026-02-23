@@ -441,6 +441,78 @@ Lookup windows key with:
 
 If necessary, adapt VM name inside `~/bin/windows`.
 
+
+#### Docker
+
+Add the Docker GPG key
+
+```
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/debian/gpg | \
+    sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+```
+
+Setup apt repository
+
+```
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \
+  https://download.docker.com/linux/debian \
+  $(lsb_release -cs) stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+```
+
+Install
+
+```
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+
+Before starting Docker for the first time, configure to store data under /home:
+
+```
+sudo mkdir -p /home/docker
+sudo chown root:root /home/docker
+sudo chmod 711 /home/docker
+```
+
+ Create or edit the file `/etc/docker/daemon.json` and add:
+
+```
+{
+  "data-root": "/home/docker"
+}
+```
+
+Start Docker
+
+```
+sudo systemctl start docker
+sudo systemctl enable docker
+```
+
+Allow user to run docker without sudo
+
+```
+sudo groupadd docker  # This will fail harmlessly if the group already exists
+sudo usermod -aG docker $USER
+```
+
+Activate the group change in current shell
+
+```
+newgrp docker
+```
+
+Verify setup
+
+```
+docker info
+# Should include: Docker Root Dir: /home/docker
+```
+
+
 #### wip
 
 * audacious or quodLibet as replacement of decibel-audio-player?
