@@ -6,12 +6,13 @@ I wrote it for myself, but have no reason to keep it private.
 
 Use at your own risks.
 
-## How to install BunsenLabs Beryllium on a thinkpad laptop
+## How to install BunsenLabs Carbon on a thinkpad laptop
 
-The instructions below are relative to the installation of BusenLabs Beryllium experimental (pre-release - based on Debian Bullseye 11) on a Thinkpad X1 Carbon Gen 7.
+The instructions below are relative to the installation of BusenLabs Carbon (based on Debian Trixie 13) on a Thinkpad laptop.
 
 Previous versions:
 
+* BunsenLabs Beryllium (based on Debian Bullseye), have a look at version tag `v1.0.0`.
 * BunsenLabs Lithium (based on Debian Buster), have a look at version tag `v0.3.0`.
 * BunsenLabs Helium (based on Debian Stretch), have a look at version tag `v0.2.0`.
 
@@ -20,56 +21,31 @@ Previous versions:
 * check ssh accesses, be sure not to end up locked out of some server.
 * Run backup scripts
 * save a copy of custom hosts `/etc/hosts`
-* save a copy of specific configs, e.g. `nginx` config files
+* save a copy of dotfiles and any specific configs, e.g. `nginx` config files
+
 
 ### Installation
 
-Target hardware: Thinkpad x1 carbon Gen7
+Target hardware: Thinkpad laptops
 
-#### Debian Netinstall
+* Download latest debian available ISO, and create a bootable USB with it.
+* Disable EFI secure boot
 
-* Download latest debian stable NETINST ISO. If intel `iwlwifi` non-free firmware is needed, get the unofficial ISO which includes the non-free firmware ([here](https://cdimage.debian.org/cdimage/unofficial/non-free/cd-including-firmware/current/amd64/iso-cd/)).
-* Disable EFI secure boot (otherwise acpi_call kernel module won't load / tlp battery management not possible)
+During the installation process, in order to get the OS in English language and Euro sign as default currency symbol, choose the following:
 
 * language: English
-* location: Belgium
+* location: [country]
 * locale: Ireland
+
 
 #### Disk partitioning layout
 
 | mount point | partition | size |
 | -- | -- | -- |
-| / | /dev/sda1 | 20 GB |
-| /home | /dev/sda2 | 450 GB |
-| /var/log | /dev/sda3 | 256 MB |
-| swap | /dev/sda4 | 9 GB |
+| / | /dev/sda1 | 30+ GB |
+| /home | /dev/sda2 | (all remaining space) |
+| swap | /dev/sda4 | 1x RAM |
 
-/dev/sda3 should be set as noatime and have journaling disabled (c.f. https://foxutech.com/how-to-disable-enable-journaling/)
-
-#### In case network is down after first boot:
-
-
-1. setup `/etc/network/interfaces`.
-
-Replace `wlan0` by your actual interface name
-
-```
-auto wlan0
-iface wlan0 inet dhcp
-wpa-ssid "<network name>"
-wpa-psk "<password>"
-```
-
-More config options [here](https://www.raspberrypi.org/forums/viewtopic.php?t=7592)
-
-2. run `sudo ifdown wlan0 && sudo ifup wlan0` (replace by proper interface name)
-
-Useful commands (as root):
-
-* `ip a`
-* `iwconfig`
-* `iwlist scan`
-* `ip link set wlp0s20f3 up`
 
 #### Bunsen Beryllium
 
@@ -80,7 +56,7 @@ Follow [instructions](https://forums.bunsenlabs.org/viewtopic.php?id=7356).
 
 Once bunsen is installed, and bl-welcome gets executed.
 
-Decline when prompted to install cvs or java.
+Decline when prompted to install cvs.
 
 #### set trackpoint sensitivity
 
@@ -111,7 +87,8 @@ $ git config --global credential.helper cache
 
 #### run automated installations
 
-(!) Make sure that you know what you're doing. study the script before executing it, or run selected steps manually to be safe.
+:warning: Make sure that you know what you're doing. study the script before executing it, or run selected steps manually to be safe.
+:warning: the script bunsenlabs-carbon-setup.sh is designed to be executed only once.
 
 N.B: when prompted, set keyboard layout as UK extended: select English (UK, ~international with dead keys~ extended WinKeys)
 
@@ -121,8 +98,11 @@ $ mkdir -p ~/development/other
 $ cd ~/development/other
 $ git clone https://github.com/mef/linux-mef.git
 $ cd linux-mef
-$ ./bunsenLabs-lithium-setup.sh
+$ ./bunsenLabs-carbon-setup.sh
 ````
+
+After running this script and restarting, open the wallpaper utility to update the wallpaper location (as `~/pictures` is now lower case).
+
 
 #### enable autologin
 
@@ -143,6 +123,8 @@ Then add the user to the group autologin:
 [source](https://wiki.archlinux.org/index.php/LightDM#Enabling_autologin)
 
 #### Add terminator theme
+
+[TODO: xfce4 terminal is now default instead of terminator - whether it should be kept is to be evaluated.]
 
 Add the following in the `profiles` section of `.config/terminator/config`:
 
@@ -167,23 +149,11 @@ Add the following in the `profiles` section of `.config/terminator/config`:
     palette = "#75715e:#f92672:#a6e22e:#f4bf75:#66d9ef:#ae81ff:#2aa198:#f9f8f5:#838383:#f92672:#a6e22e:#f4bf75:#66d9ef:#ae81ff:#2aa198:#f9f8f5"
 ```
 
-#### Fix black lock screen
-
-A bug in light-locker causes a black screen to be presented rather than the login prompt.
-
-This is worked around by installing another greeter app.
-
-```
-sudo apt install slick-greeter
-
-cd /etc/lightdm/
-sudo mkdir -p lightdm.conf.d
-cd lightdm.conf.d/
-sudo cp -p /usr/share/lightdm/lightdm.conf.d/50-slick-greeter.conf .
-```
+#### bashrc
 
 
-Then, edit `~/.xbindkeysrc` in order to replace light-locker by `dm-tool lock` for the lock keyboard shortcut.
+enable alias ll
+
 
 #### custom keyboard shortcuts
 
@@ -240,34 +210,12 @@ Add or modify the following inside `~/.config/openbox/rc.xml`:
 
 Manually define shortcuts in thunar
 
-#### adapt permissions for brightness controls
 
-By default, only root has permissions over brightness control. The following udev rules changes brightness group to `video`, and makes it writable by the group.
+#### tlp
 
-Create a new file `/etc/udev/rules.d/backlight.rules` filled-up with the following contents:
+adjust battery charge thresholds in `/etc/tlp.conf`, and disable bluetooth on startup in the same file
 
-```
-ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="intel_backlight", RUN+="/bin/chgrp video /sys/class/backlight/%k/brightness"
-ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="intel_backlight", RUN+="/bin/chmod g+w /sys/class/backlight/%k/brightness"
-```
 
-[more info](https://superuser.com/questions/484678/cant-write-to-file-sys-class-backlight-acpi-video0-brightness-ubuntu).
-
-#### adjust battery charge thresholds in `/etc/default/tlp`, and disable bluetooth on startup
-
-#### locale setup
-
-Fix the locale so that Monday is the first day of the week. [Method #2](http://bitthinker.com/blog/en/troubles/how-to-change-first-week-day-in-xfce) here works for tint2's calendar.
-
-#### configure unattended-upgrades
-
-* edit the active origin pattern inside `/etc/apt/apt.conf.d/50unattended-upgrades`, e.g. set the following one:
-
-````
-      "origin=Debian,codename=${distro_codename},label=Debian-Security";
-````
-
-[source](https://wiki.debian.org/UnattendedUpgrades).
 
 #### configure awscli
 
@@ -298,18 +246,28 @@ ssh-keygen -o -a 100 -t ed25519
 
 #### firefox setup
 
-Download firefox stable from https://www.mozilla.org/en-US/firefox/
-Download firefox developer edition from https://www.mozilla.org/en-US/firefox/channel/desktop/
 
-Unpack both tarballs inside /opt/c-user/firefox and firefox-dev, respectively
+Setup firefox using Mozilla's apt repositories: https://support.mozilla.org/en-US/kb/install-firefox-linux#w_install-firefox-deb-package-for-debian-based-distributions
+
+Run this for the keyu verification to succeed:
 
 ```
-sudo apt remove firefox-esr firefox
-sudo ln -s /opt/c-user/firefox/firefox /usr/bin/firefox
-sudo ln -s /opt/c-user/firefox-dev/firefox /usr/bin/firefox-dev
-sudo update-alternatives --install /usr/bin/x-www-browser x-www-browser /opt/c-user/firefox/firefox 200
-sudo update-alternatives --install /usr/bin/x-www-browser x-www-browser /opt/c-user/firefox-dev/firefox 100
+mkdir -p ~/.gnupg
+chmod 700 ~/.gnupg
 ```
+
+
+After repo setup:
+
+```
+sudo apt update
+sudo apt purge firefox-esr
+sudo apt autoremove
+
+sudo apt install firefox firefox-devedition
+```
+
+
 
 #### web browsers config
 
@@ -350,53 +308,6 @@ echo 'QT_AUTO_SCREEN_SCALE_FACTOR=0' | sudo tee -a /etc/environment
 
 toggle `Windows\Single-window mode`
 
-#### gephi config
-
-edit `gephi-0.9.2/etc/gephi.conf` and set suitable values to `-Xms` and `-Xmx` parameters
-
-e.g. 
-
-    Xms512m -J-Xmx4096m
-
-#### databases
-
-```
-## mariadb: with data and tmp directories inside /home partition
-sudo apt install mariadb-server mariadb-client
-
-sudo mysql_secure_installation
-
-sudo systemctl stop mariadb
-sleep 10
-sudo systemctl status mariadb
-sudo mv /var/lib/mysql /home/
-sudo mkdir /home/mysqlTmp
-sudo chown mysql:mysql /home/mysqlTmp
-
-## update directories in config file
-sudo sed -i 's#/var/lib/mysql#/home/mysql#g' /etc/mysql/mariadb.conf.d/50-server.cnf
-sudo sed -i 's#/tmp#/home/mysqlTmp#g' /etc/mysql/mariadb.conf.d/50-server.cnf
-
-## allow mysql to access home directory in  daemon
-sudo sed -i 's/ProtectHome=true/ProtectHome=false/' /etc/systemd/system/mysql.service
-### avoid config being overwritten after software updates
-sudo cp /lib/systemd/system/mariadb.service /etc/systemd/system/
-sudo sed -i 's/ProtectHome=true/ProtectHome=false/' /etc/systemd/system/mariadb.service
-
-sudo systemctl daemon-reload
-
-sudo systemctl start mariadb
-sleep 10
-sudo systemctl status mariadb
-```
-
-Connect via sudo to use as `root` user.
-
-If  needed to have a user with permissions similar to root, usable from `localhost`, follow [these steps](https://www.digitalocean.com/community/tutorials/how-to-install-mariadb-on-debian-10).
-
-If relevant, restore dumps from backup.
-
-For mariadb, in case the source OS is not usable for the creation of backups, physical backups can be used ([instructions](https://www.linode.com/docs/databases/mysql/create-physical-backups-of-your-mariadb-or-mysql-databases/)).
 
 #### development
 
@@ -405,14 +316,6 @@ For mariadb, in case the source OS is not usable for the creation of backups, ph
 3. retrieve params / config files from backup
 4. retrieve custom hosts and store in /etc/hosts
 
-
-#### http server
-
-Once node.js is installed, run the following
-
-````bash
-npm install http-server -g
-````
 
 #### pip
 
@@ -426,10 +329,7 @@ Then add the path to python packages to bashrc file:
     export PATH=/home/c-user/.local/bin:$PATH
 
 Then use command `pip3`.
-    
-For python 2:
 
-    sudo apt install --no-install-recommends python-pip
 
 #### virtual machine setup (wip)
 
@@ -534,3 +434,29 @@ Dependencies: `genisoimage` package.
 
     geteltorito -o x250.img downladed-iso-file-name.iso
 
+
+## Troubleshooting
+
+### Networking
+
+Manual wi-fi setup `/etc/network/interfaces`.
+
+Replace `wlan0` by your actual interface name
+
+```
+auto wlan0
+iface wlan0 inet dhcp
+wpa-ssid "<network name>"
+wpa-psk "<password>"
+```
+
+More config options [here](https://www.raspberrypi.org/forums/viewtopic.php?t=7592)
+
+
+Useful commands (as root):
+
+* `ip a`
+* `iwconfig`
+* `iwlist scan`
+* `ip link set wlp0s20f3 up`
+* `ifdown wlan0 && sudo ifup wlan0` (replace by proper interface name)
