@@ -365,32 +365,10 @@ echo \
 Install
 
 ```
-sudo apt-get update
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo apt update
+sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
-Before starting Docker for the first time, configure to store data under /home:
-
-```
-sudo mkdir -p /home/docker
-sudo chown root:root /home/docker
-sudo chmod 711 /home/docker
-```
-
- Create or edit the file `/etc/docker/daemon.json` and add:
-
-```
-{
-  "data-root": "/home/docker"
-}
-```
-
-Start Docker
-
-```
-sudo systemctl start docker
-sudo systemctl enable docker
-```
 
 Allow user to run docker without sudo
 
@@ -403,6 +381,41 @@ Activate the group change in current shell
 
 ```
 newgrp docker
+```
+
+Before using Docker for the first time, configure to store data under /home:
+
+```
+sudo mkdir -p /home/docker
+sudo chown root:root /home/docker
+sudo chmod 711 /home/docker
+```
+
+Create or edit the file `/etc/docker/daemon.json` and add:
+
+```
+{
+  "data-root": "/home/docker"
+}
+```
+
+
+If this is not a fresh install and containers were created in /var/lib/docker, move them to the new location
+
+```
+## Only if there are containers previously setup, which need to be moved
+# sudo rsync -aHAX /var/lib/docker/ /home/docker/
+```
+
+Restart Docker
+
+```
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
+
+```
+sudo rm -r /var/lib/docker
 ```
 
 Verify setup
