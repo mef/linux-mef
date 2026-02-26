@@ -122,9 +122,15 @@ Then add the user to the group autologin:
 
 [source](https://wiki.archlinux.org/index.php/LightDM#Enabling_autologin)
 
-#### Add terminator theme
+#### Terminator setup and configure git
 
-[TODO: xfce4 terminal is now default instead of terminator - whether it should be kept is to be evaluated.]
+Install terminator to replace xfce4-terminal. It should set itself as default terminal automatically.
+
+```
+sudo apt install terminator
+```
+
+Add terminator themes
 
 Add the following in the `profiles` section of `.config/terminator/config`:
 
@@ -149,8 +155,10 @@ Add the following in the `profiles` section of `.config/terminator/config`:
     palette = "#75715e:#f92672:#a6e22e:#f4bf75:#66d9ef:#ae81ff:#2aa198:#f9f8f5:#838383:#f92672:#a6e22e:#f4bf75:#66d9ef:#ae81ff:#2aa198:#f9f8f5"
 ```
 
-#### bashrc
 
+Activate it as default in the preferences menu, Layouts, Terminal child 1 profile dropdown menu, then click save (right-hand column, bottom).
+
+#### bashrc
 
 enable alias ll
 
@@ -295,18 +303,10 @@ cf. [install using git](https://github.com/nvm-sh/nvm#manual-install).
 
 Then `nvm install --lts`
 
-#### vlc media player
-
-```
-## fix QT scaling for Hi-DPI screens for VLC media player
-echo 'QT_AUTO_SCREEN_SCALE_FACTOR=0' | sudo tee -a /etc/environment
-```
-
-(effective after reboot)
 
 #### gimp config
 
-toggle `Windows\Single-window mode`
+At first launch, in the 'preferences', un-toggle `Use symbolic icons if available`. This resotres the colored tools icons, easier to distinguish.
 
 
 #### development
@@ -426,14 +426,23 @@ docker info
 ```
 
 
-#### wip
+#### other
 
+* replace xfce4-panel by tint2
+* custom terminator layouts
+* replace xwall with nitrogen
+* disable conky
+* replace grub background image (override /usr/share/images/bunsen/grub/default.png)
 * audacious or quodLibet as replacement of decibel-audio-player?
-* raleway and roboto fonts
-* ublock origin custom filters / rules
+* Copy fonts in `~/.local/share/fonts` then `fc-cache -fv ~/.local/share/fonts`
+* Configure default font for libreOffice
+* setup dictionaries in libreOffice writer
+* ublock origin custom filters / rules export/import
 
 
 ### BIOS upgrade
+
+(might be obsolete, instructions from older OS versions)
 
 Dependencies: `genisoimage` package.
 
