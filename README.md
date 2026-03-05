@@ -83,6 +83,7 @@ $ sudo apt install git
 $ git config --global user.name "John Doe"
 $ git config --global user.email johndoe@example.com
 $ git config --global credential.helper cache
+$ git config --global completion.commands -difftool
 ````
 
 #### run automated installations
@@ -237,9 +238,12 @@ Retrieve data sync scripts from s3, put them in bin directory
 #### Geany
 
 * select theme monokai-mef them in geany "View\Change color scheme" menu
+* toggle `Preferences/General/Misc./Always wrap search`
 * activate line wrap in geany `Preferences/editor`
+* set close keybinding to `<Primary>F4`
 * add `Search field` and `Goto field` to toolbar
 * swap keybindings of `Find` and `Switch to search bar`
+
 
 #### ssh
 
@@ -389,6 +393,8 @@ Before using Docker for the first time, configure to store data under /home:
 sudo mkdir -p /home/docker
 sudo chown root:root /home/docker
 sudo chmod 711 /home/docker
+
+sudo mkdir -p /home/containerd
 ```
 
 Create or edit the file `/etc/docker/daemon.json` and add:
@@ -399,23 +405,32 @@ Create or edit the file `/etc/docker/daemon.json` and add:
 }
 ```
 
+Edit the file `/etc/containerd/config.toml`:
+
+N.B. If `/etc/containerd/config.toml` doesn't exist yet, generate it with:
+
+```
+# sudo containerd config default | sudo tee /etc/containerd/config.toml
+```
+
+```
+root = "/home/containerd"
+```
+
 
 If this is not a fresh install and containers were created in /var/lib/docker, move them to the new location
 
 ```
 ## Only if there are containers previously setup, which need to be moved
 # sudo rsync -aHAX /var/lib/docker/ /home/docker/
+# sudo rsync -aHAX /var/lib/containerd/ /home/containerd/
 ```
 
 Restart Docker
 
 ```
 sudo systemctl daemon-reload
-sudo systemctl restart docker
-```
-
-```
-sudo rm -r /var/lib/docker
+sudo systemctl restart docker containerd
 ```
 
 Verify setup
@@ -423,6 +438,13 @@ Verify setup
 ```
 docker info
 # Should include: Docker Root Dir: /home/docker
+```
+
+Cleanup if needed
+
+```
+sudo rm -r /var/lib/docker
+sudo rm -r /var/lib/containerd
 ```
 
 
